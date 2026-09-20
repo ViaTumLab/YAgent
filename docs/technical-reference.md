@@ -1,8 +1,8 @@
 # YAgent 技术参考
 
-[返回项目首页](../README.md)
+[返回项目首页](https://github.com/ViaTumLab/Yan-Agent)
 
-[ViaTum Lab 公司网站](index.html) · [Yan Agent 产品介绍](product-intro.html)
+[ViaTum Lab 公司网站](https://viatumlab.inkmindspace.com) · [YAgent 产品介绍](https://viatumlab.inkmindspace.com/product-intro.html)
 
 面向真实工作区的 Windows 桌面 Agent。连接你选择的模型，让它读取项目、定位代码、使用工具、协作修改、操作内置浏览器，并把执行过程与文件变化交付给你审阅。
 
@@ -13,7 +13,7 @@
 
 **模型负责推理与生成，Yan 负责提供可用的工程环境。** 项目理解、精确编辑、状态持久化、权限、上下文、MCP、子代理与审阅是产品的一部分，不需要用户把每项能力重新拼装成独立工具。
 
-本文对应 `package.json` 的 **1.6.0**。1.6.0 的核心变化是专用模型适配、工程分析工具、长任务恢复、结构化子代理协作、审阅性能、网页注释，以及云顶天宫 Work GUI。产品介绍见 [Yan Agent 产品页](product-intro.html)。
+本文对应 `package.json` 的 **1.6.0**。1.6.0 的核心变化是专用模型适配、工程分析工具、长任务恢复、结构化子代理协作、审阅性能、网页注释，以及云顶天宫 Work GUI。产品介绍见 [YAgent 产品页](https://viatumlab.inkmindspace.com/product-intro.html)。
 
 > 当前为 v1.6.0 正式版。本文解释已经存在的代码及其边界，不把实验模块、工具可用性或测试文件数量等同于任务成功率。模型服务的可用性、价格、额度和参数支持以实际供应商为准。
 
@@ -44,7 +44,7 @@
 
 ### 安装与首次配置
 
-在 [Releases](https://github.com/666-gy/Yan-Agent/releases) 中选择实际已发布的 Windows x64 安装包或便携包。README 的开发版本号不代表对应发布资产一定已经上传。
+在 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 中选择实际已发布的 Windows x64 安装包或便携包。README 的开发版本号不代表对应发布资产一定已经上传。
 
 1. 打开 API 配置，创建一个连接，填写名称、Base URL 和 API Key。
 2. 选择兼容预设和服务端实际支持的格式，测试连接；模型可从返回列表选择，也可以手填模型 ID。
@@ -586,7 +586,7 @@ Work GUI 是真实任务系统的另一种展示与操作入口。当前宿主�
 当前构建目标为 Windows x64。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
 
 ```powershell
-git clone https://github.com/666-gy/Yan-Agent.git
+git clone https://github.com/ViaTumLab/Yan-Agent.git
 cd Yan-Agent
 npm ci
 npm start
@@ -692,4 +692,4 @@ Yan Agent 主项目采用 MIT 许可。OpenCode、Electron、模型 SDK、Serena
 
 第三方来源与授权参见 [总说明](../lib/THIRD_PARTY_NOTICES.md)、[技能说明](../lib/skills/THIRD_PARTY_NOTICES.md)、[OpenCode 上游说明](../vendor/opencode/UPSTREAM.md)、[dsh 来源](../lib/vendor/dsh-code-review/VENDOR.md)、[启动页资源](../renderer/splash/README.md)、[中文字体许可](../renderer/assets/NotoSerifSC-OFL.txt)、[场景素材](../renderer/work-gui/palace/assets/LICENSES.md)及[星河素材](../renderer/work-gui/palace/assets/GALAXY-LICENSE.md)。
 
-欢迎通过 [Issues](https://github.com/666-gy/Yan-Agent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。
+欢迎通过 [Issues](https://github.com/ViaTumLab/Yan-Agent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。

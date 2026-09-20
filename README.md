@@ -4,11 +4,11 @@
   <p><strong>让想法，真正运行起来。</strong></p>
   <p>面向真实工作区的开源桌面 Agent · An open-source project by ViaTum Lab</p>
   <p>
-    <a href="https://github.com/666-gy/Yan-Agent/releases">下载安装</a> ·
+    <a href="https://github.com/ViaTumLab/Yan-Agent/releases">下载安装</a> ·
     <a href="https://viatumlab.inkmindspace.com">ViaTum Lab</a> ·
     <a href="https://viatumlab.inkmindspace.com/product-intro.html">产品介绍</a> ·
-    <a href="docs/technical-reference.md">技术文档</a> ·
-    <a href="https://github.com/666-gy/Yan-Agent/issues">反馈问题</a>
+    <a href="https://viatumlab.inkmindspace.com/yagent/">技术文档</a> ·
+    <a href="https://github.com/ViaTumLab/Yan-Agent/issues">反馈问题</a>
   </p>
   <p>
     <img src="https://img.shields.io/badge/version-1.6.0-2563eb" alt="Version 1.6.0">
@@ -25,14 +25,14 @@
 
 **模型负责推理，YAgent 负责执行，ViaHarness 负责选择。** ViaHarness 正在开发中，未来将与 YAgent 配套使用，发挥 **MAX** 效果。
 
-[快速开始](#start) · [核心能力](#features) · [与 ViaHarness 配合](#viaharness) · [跨场景迁移](#scenarios) · [前沿探索](#research) · [参与开发](#development)
+[快速开始](#start) · [核心能力](#features) · [与 ViaHarness 配合](#viaharness) · [技术文档](https://viatumlab.inkmindspace.com/yagent/) · [参与开发](#development)
 
 <a id="start"></a>
 ## 快速开始
 
 ### 下载客户端
 
-前往 [Releases](https://github.com/666-gy/Yan-Agent/releases)，选择已发布的 **Windows x64 安装包或便携包**。本文对应源码版本 `1.6.0`，可下载版本以发布页为准。
+前往 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases)，选择已发布的 **Windows x64 安装包或便携包**。本文对应源码版本 `1.6.0`，可下载版本以发布页为准。
 
 1. **连接模型**：在 API 配置中填写 Base URL 和 API Key，选择服务实际支持的协议、适配预设与模型，测试连接。
 2. **打开工作区**：选择一个本地项目；不涉及项目文件的问答和网页阅读可以从 Blank 任务开始。
@@ -71,7 +71,7 @@ YAgent 目前支持直接连接兼容的模型服务。ViaHarness 尚未对外�
 | 自进化 | 使用相关经验，记录有执行证据支持的规则与策略改进。 |
 | AGI（实验性） | 探索轨迹学习、经验整理、协作拓扑与评估等研究能力。 |
 
-更多实现细节见[技术参考](docs/technical-reference.md)，包括权限边界、模型协议、任务恢复与故障排查。
+更多实现细节见 [YAgent 技术文档](https://viatumlab.inkmindspace.com/yagent/)，包括权限边界、模型协议、任务恢复与故障排查。
 
 <a id="viaharness"></a>
 ## YAgent × ViaHarness（开发中）
@@ -106,32 +106,6 @@ ViaHarness 的产品方向是：**一个 API Key，让终端为每个任务、�
 
 YAgent 可以独立使用，本仓库已提供客户端源码。ViaHarness 开放后，我们会同步发布服务地址、协议、配置和申请方式。当前可在 [ViaHarness 产品介绍](https://viatumlab.inkmindspace.com/#product) 了解设计方向。
 
-<a id="scenarios"></a>
-## Every task. Every domain.
-
-**复用共同内核，适配领域最后一公里。** 从代码开发出发，通过领域知识、专业工具、规则与反馈，让相同的执行能力迁移到更多场景。
-
-| 探索场景 | 工作流方向 | 需要适配的领域能力 |
-| --- | --- | --- |
-| 金融 | 研究、数据分析、文档整理与审查 | 专业数据工具、风控规则、权限与复核流程 |
-| 医疗 | 知识检索、文档处理与辅助工作流 | 医学来源、隐私边界、人工确认节点 |
-| 教育 | 教学内容准备、学习辅助与反馈 | 课程知识、教学目标、角色与学习节奏 |
-| 科研 | 文献阅读、实验执行、结果分析与审阅 | 学科知识、实验工具、可复现的验证流程 |
-| 政务 | 政策检索、材料处理与服务流程辅助 | 政策规则、组织权限、既有系统接口 |
-
-以上是 ViaTum Lab 的跨场景探索方向；具体工作流需要配置对应的工具、知识与权限。YAgent 提供统一的桌面执行入口，ViaHarness 将围绕共同能力提供中间层支撑。
-
-<a id="research"></a>
-## 让 Harness，在执行中持续进化
-
-我们围绕 **RSI（Recursive Self-Improvement，递归自我改进）**，探索从执行反馈到能力升级的闭环。
-
-- **从执行轨迹中学习**：把工具调用、任务结果、失败路径与人工反馈转化为策略改进的依据。
-- **递归自我改进**：生成、评测并迭代 Skill、工作流、记忆与协作策略，让经验服务于下一次执行。
-- **可验证的安全演化**：通过独立评测、版本追踪与回退机制，检验每一次能力变化。
-
-YAgent 已包含自进化与实验性 AGI 模块，为这些方向提供可检查、可运行的探索载体。研究目标与实验模块的存在不代表已实现通用人工智能或稳定的自主能力提升。实现与当前边界见[工作模式、自进化与 AGI](docs/technical-reference.md#modes)。
-
 <a id="development"></a>
 ## 参与开发
 
@@ -140,7 +114,7 @@ YAgent 已包含自进化与实验性 AGI 模块，为这些方向提供可检�
 当前运行时与发布目标为 **Windows x64**。准备 Git、Node.js 与 npm；CI 使用 Node.js 22。
 
 ```powershell
-git clone https://github.com/666-gy/Yan-Agent.git
+git clone https://github.com/ViaTumLab/Yan-Agent.git
 cd Yan-Agent
 npm ci
 npm start
@@ -156,7 +130,7 @@ npm run build             # Windows 安装包
 npm run build:portable    # Windows 便携包
 ```
 
-产物位于 `dist/`。构建包含运行时资源准备和打包校验；Electron E2E 与真实 API 测试需单独运行。修改模型适配器等源码后，需更新对应 bundle，详见[开发、构建与测试](docs/technical-reference.md#development)。
+产物位于 `dist/`。构建包含运行时资源准备和打包校验；Electron E2E 与真实 API 测试需单独运行。修改模型适配器等源码后，需更新对应 bundle，详见 [YAgent 技术文档](https://viatumlab.inkmindspace.com/yagent/#development)。
 
 ### 从这些模块开始
 
@@ -170,9 +144,9 @@ npm run build:portable    # Windows 便携包
 | [renderer/](renderer/) | 桌面界面、浏览器与审阅交互 |
 | [test/](test/) | 模块测试、交互测试与运行时验证 |
 
-欢迎通过 [Issues](https://github.com/666-gy/Yan-Agent/issues) 反馈问题，或提交 Pull Request 改进模型适配、工具连接、交互、文档与评测。问题报告请附版本、系统、连接类型、复现步骤和脱敏日志；功能修改请说明使用场景及实际验证结果。
+欢迎通过 [Issues](https://github.com/ViaTumLab/Yan-Agent/issues) 反馈问题，或提交 Pull Request 改进模型适配、工具连接、交互、文档与评测。问题报告请附版本、系统、连接类型、复现步骤和脱敏日志；功能修改请说明使用场景及实际验证结果。
 
-任务、配置与运行记录主要保存在本地应用数据目录，工作区 `.yanagent` 还可能包含快照和未合并的 worktree。模型请求会发送到你配置的服务，MCP 等工具也可能访问外部系统。数据位置与权限说明见[技术参考](docs/technical-reference.md#data)。
+任务、配置与运行记录主要保存在本地应用数据目录，工作区 `.yanagent` 还可能包含快照和未合并的 worktree。模型请求会发送到你配置的服务，MCP 等工具也可能访问外部系统。数据位置与权限说明见 [YAgent 技术文档](https://viatumlab.inkmindspace.com/yagent/#data)。
 
 ## 关于 ViaTum Lab
 
