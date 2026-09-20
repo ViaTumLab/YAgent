@@ -6,6 +6,7 @@ import io
 import json
 import os
 import sys
+import time
 import requests
 
 if sys.stdout.encoding != "utf-8":
@@ -73,9 +74,17 @@ def _call_api(tool_name: str, arguments: dict, api_key: str) -> str:
         "method": "tools/call",
         "params": {"name": tool_name, "arguments": arguments},
     }
+    max_retries = 3
     try:
-        resp = requests.post(ENDPOINT, json=payload, headers=_build_headers(api_key), timeout=30)
-        resp.raise_for_status()
+        for attempt in range(max_retries + 1):
+            resp = requests.post(ENDPOINT, json=payload, headers=_build_headers(api_key), timeout=30)
+            if resp.status_code == 429 and attempt < max_retries:
+                retry_after = resp.headers.get("Retry-After")
+                delay = float(retry_after) if retry_after and retry_after.isdigit() else (2 ** attempt)
+                time.sleep(min(delay, 30))
+                continue
+            resp.raise_for_status()
+            break
     except requests.exceptions.HTTPError as e:
         print(f"HTTP Error: {e}", file=sys.stderr)
         try:
