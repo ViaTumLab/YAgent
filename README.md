@@ -9,7 +9,9 @@
     <a href="https://github.com/ViaTumLab/Yan-Agent"><img src="https://img.shields.io/badge/GitHub-334155?style=for-the-badge" height="28" alt="GitHub 源码"></a>
   </p>
   <p>
-    <sub>v1.6.0 &nbsp; / &nbsp; Windows x64 &nbsp; / &nbsp; MIT License</sub>
+    <img src="docs/assets/badge-version.svg" height="22" alt="版本 v1.6.0">
+    <img src="docs/assets/badge-windows.svg" height="22" alt="支持 Windows x64">
+    <a href="LICENSE"><img src="docs/assets/badge-license.svg" height="22" alt="MIT License"></a>
   </p>
 </div>
 
