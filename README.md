@@ -40,7 +40,7 @@
 
 ### 安装与首次配置
 
-在 [Releases](https://github.com/666-gy/Yan-Agent/releases) 中选择实际已发布的 Windows x64 安装包或便携包。README 的开发版本号不代表对应发布资产一定已经上传。
+在 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 中选择实际已发布的 Windows x64 安装包或便携包。README 的开发版本号不代表对应发布资产一定已经上传。
 
 1. 打开 API 配置，创建一个连接，填写名称、Base URL 和 API Key。
 2. 选择兼容预设和服务端实际支持的格式，测试连接；模型可从返回列表选择，也可以手填模型 ID。
@@ -579,10 +579,10 @@ Work GUI 是真实任务系统的另一种展示与操作入口。当前宿主�
 
 ### 从源码运行
 
-当前构建目标为 Windows x64。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
+当前构建目标为 Windows x64 和 macOS Apple Silicon（arm64）。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
 
 ```powershell
-git clone https://github.com/666-gy/Yan-Agent.git
+git clone https://github.com/ViaTumLab/Yan-Agent.git
 cd Yan-Agent
 npm ci
 npm start
@@ -688,4 +688,18 @@ Yan Agent 主项目采用 MIT 许可。OpenCode、Electron、模型 SDK、Serena
 
 第三方来源与授权参见 [总说明](lib/THIRD_PARTY_NOTICES.md)、[技能说明](lib/skills/THIRD_PARTY_NOTICES.md)、[OpenCode 上游说明](vendor/opencode/UPSTREAM.md)、[dsh 来源](lib/vendor/dsh-code-review/VENDOR.md)、[启动页资源](renderer/splash/README.md)、[中文字体许可](renderer/assets/NotoSerifSC-OFL.txt)、[场景素材](renderer/work-gui/palace/assets/LICENSES.md)及[星河素材](renderer/work-gui/palace/assets/GALAXY-LICENSE.md)。
 
-欢迎通过 [Issues](https://github.com/666-gy/Yan-Agent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。
+欢迎通过 [Issues](https://github.com/ViaTumLab/Yan-Agent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。
+
+
+### macOS 构建
+
+macOS 支持由 [Yan-Agent-Macos](https://github.com/atom30260-jpg/Yan-Agent-Macos) 合并而来，后续统一在本仓库维护。
+在 Apple Silicon Mac 上使用 Node.js 22 和 npm：
+
+```bash
+npm ci
+npm run build:mac
+```
+
+输出为 `dist/Yan.Agent-arm64-v1.6.0.dmg`（版本号以 package.json 为准）。当前构建未签名、未公证；Intel Mac 安装包尚未配置。
+Windows 继续使用 `npm run build` / `npm run build:portable`。

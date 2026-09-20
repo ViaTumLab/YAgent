@@ -16,6 +16,7 @@
     "build": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win nsis --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
     "build:release": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win nsis portable --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
     "build:portable": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win portable --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
+    "build:mac": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --mac dmg --arm64 --publish never",
     "bundle:splash": "node scripts/build-splash.cjs"
   },
   "author": "",
@@ -51,7 +52,9 @@
       "!lib/native/**/*.cs",
       "!lib/**/__pycache__/**/*",
       "!lib/**/*.pyc",
-      "!node_modules/@colbymchenry/codegraph-win32-x64/**/*"
+      "!node_modules/@colbymchenry/codegraph-win32-x64/**/*",
+      "!node_modules/@colbymchenry/codegraph-darwin-arm64/**/*",
+      "!lib/skills/**/*.app"
     ],
     "asarUnpack": [
       "lib/**/*",
@@ -67,17 +70,8 @@
       "node_modules/yaml/**/*",
       "node_modules/opencode-ai/**/*",
       "node_modules/opencode-windows-*/**/*",
+      "node_modules/opencode-darwin-*/**/*",
       "node_modules/@officecli/officecli/**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "node_modules/@colbymchenry/codegraph-win32-x64",
-        "to": "codegraph-runtime"
-      },
-      {
-        "from": "node_modules/@officecli/officecli/vendor",
-        "to": "officecli-runtime"
-      }
     ],
     "win": {
       "icon": "renderer/assets/logo-light.ico",
@@ -94,7 +88,47 @@
             "x64"
           ]
         }
+      ],
+      "extraResources": [
+        {
+          "from": "node_modules/@colbymchenry/codegraph-win32-x64",
+          "to": "codegraph-runtime"
+        },
+        {
+          "from": "node_modules/@officecli/officecli/vendor",
+          "to": "officecli-runtime"
+        }
       ]
+    },
+    "mac": {
+      "identity": null,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "category": "public.app-category.utilities",
+      "icon": "build/icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "extraResources": [
+        {
+          "from": "node_modules/@colbymchenry/codegraph-darwin-arm64",
+          "to": "codegraph-runtime"
+        },
+        {
+          "from": "vendor/officecli-runtime",
+          "to": "officecli-runtime"
+        }
+      ]
+    },
+    "dmg": {
+      "artifactName": "Yan.Agent-${arch}-v${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -122,7 +156,6 @@
     "monaco-editor": "0.56.0",
     "msedge-tts": "^2.0.7",
     "opencode-ai": "1.18.11",
-    "opencode-windows-x64": "1.18.11",
     "skills": "1.5.21",
     "tree-sitter-c": "^0.24.1",
     "tree-sitter-cpp": "^0.23.4",
@@ -134,5 +167,8 @@
     "tree-sitter-typescript": "^0.23.2",
     "web-tree-sitter": "^0.27.0",
     "zod": "4.4.3"
+  },
+  "optionalDependencies": {
+    "opencode-windows-x64": "1.18.11"
   }
 }
