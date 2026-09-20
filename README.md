@@ -124,7 +124,7 @@ npm run build:portable    # Windows 便携包
 
 ## 关于 ViaTum Lab
 
-[ViaTum Lab](https://viatumlab.inkmindspace.com) 是一家构建 Harness 中间层的前沿实验室，致力于构建跨场景智能基础设施。YAgent 是我们的开源客户端项目。
+[ViaTum Lab](https://viatumlab.inkmindspace.com) 是一家构建 Harness 中间层的前沿实验室，致力于构建跨场景智能基础设施。YAgent 是我们孵化出的一个开源客户端。
 
 创始团队来自北京大学与清华大学，汇聚多名顶尖基础模型团队成员，团队孵化于国家重点实验室。
 
