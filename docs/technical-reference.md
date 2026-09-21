@@ -1,6 +1,6 @@
 # YAgent 技术参考
 
-[返回项目首页](https://github.com/ViaTumLab/Yan-Agent)
+[返回项目首页](https://github.com/ViaTumLab/YAgent)
 
 [ViaTum Lab 公司网站](https://viatumlab.inkmindspace.com) · [YAgent 产品介绍](https://viatumlab.inkmindspace.com/product-intro.html)
 
@@ -45,7 +45,7 @@
 
 ### 安装与首次配置
 
-当前支持 Windows x64 与 macOS Apple Silicon（arm64）。Windows 安装包从 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 获取；macOS DMG 可从 [macOS build](https://github.com/ViaTumLab/Yan-Agent/actions/workflows/macos-build.yml) 的构建产物获取或从源码生成。README 的开发版本号不代表对应发布资产一定已经上传。
+当前支持 Windows x64 与 macOS Apple Silicon（arm64）。Windows 安装包从 [Releases](https://github.com/ViaTumLab/YAgent/releases) 获取；macOS DMG 可从 [macOS build](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml) 的构建产物获取或从源码生成。README 的开发版本号不代表对应发布资产一定已经上传。
 
 1. 打开 API 配置，创建一个连接，填写名称、Base URL 和 API Key。
 2. 选择兼容预设和服务端实际支持的格式，测试连接；模型可从返回列表选择，也可以手填模型 ID。
@@ -588,8 +588,8 @@ macOS:   ~/Library/Application Support/yan-agent/YanData
 当前构建目标为 Windows x64 与 macOS Apple Silicon（arm64）。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
 
 ```bash
-git clone https://github.com/ViaTumLab/Yan-Agent.git
-cd Yan-Agent
+git clone https://github.com/ViaTumLab/YAgent.git
+cd YAgent
 npm ci
 npm start
 ```
@@ -697,4 +697,4 @@ Yan Agent 主项目采用 MIT 许可。OpenCode、Electron、模型 SDK、Serena
 
 第三方来源与授权参见 [总说明](../lib/THIRD_PARTY_NOTICES.md)、[技能说明](../lib/skills/THIRD_PARTY_NOTICES.md)、[OpenCode 上游说明](../vendor/opencode/UPSTREAM.md)、[dsh 来源](../lib/vendor/dsh-code-review/VENDOR.md)、[启动页资源](../renderer/splash/README.md)、[中文字体许可](../renderer/assets/NotoSerifSC-OFL.txt)、[场景素材](../renderer/work-gui/palace/assets/LICENSES.md)及[星河素材](../renderer/work-gui/palace/assets/GALAXY-LICENSE.md)。
 
-欢迎通过 [Issues](https://github.com/ViaTumLab/Yan-Agent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。
+欢迎通过 [Issues](https://github.com/ViaTumLab/YAgent/issues) 提交可复现问题。请附版本、系统、模型连接类型、复现步骤及脱敏日志，并区分模型回答问题、API 兼容问题、工具失败和 UI 显示问题。

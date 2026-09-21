@@ -4,9 +4,9 @@
   <p><strong>让想法，真正运行起来。</strong></p>
   <p>面向真实工作区的开源桌面 Agent<br><sub>Built by ViaTum Lab</sub></p>
   <p>
-    <a href="https://github.com/ViaTumLab/Yan-Agent/releases"><img src="https://img.shields.io/badge/Download-2563EB?style=for-the-badge" height="28" alt="下载安装"></a>
+    <a href="https://github.com/ViaTumLab/YAgent/releases"><img src="https://img.shields.io/badge/Download-2563EB?style=for-the-badge" height="28" alt="下载安装"></a>
     <a href="https://viatumlab.inkmindspace.com/yagent/"><img src="https://img.shields.io/badge/Docs-334155?style=for-the-badge" height="28" alt="技术文档"></a>
-    <a href="https://github.com/ViaTumLab/Yan-Agent"><img src="https://img.shields.io/badge/GitHub-334155?style=for-the-badge" height="28" alt="GitHub 源码"></a>
+    <a href="https://github.com/ViaTumLab/YAgent"><img src="https://img.shields.io/badge/GitHub-334155?style=for-the-badge" height="28" alt="GitHub 源码"></a>
   </p>
   <p>
     <img src="docs/assets/badge-version.svg" height="22" alt="版本 v1.6.0">
@@ -25,7 +25,7 @@ YAgent（Yan-Agent）是 ViaTum Lab 孵化出的一个开源客户端。连接�
 <a id="start"></a>
 ## 快速开始
 
-当前支持 **Windows x64** 与 **macOS Apple Silicon（arm64）**。Windows 安装包可从 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 下载；macOS 构建可在 [macOS build](https://github.com/ViaTumLab/Yan-Agent/actions/workflows/macos-build.yml) 中获取或从源码生成。本文对应源码版本 `1.6.0`，可下载资产以发布页和构建页为准。
+当前支持 **Windows x64** 与 **macOS Apple Silicon（arm64）**。Windows 安装包可从 [Releases](https://github.com/ViaTumLab/YAgent/releases) 下载；macOS 构建可在 [macOS build](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml) 中获取或从源码生成。本文对应源码版本 `1.6.0`，可下载资产以发布页和构建页为准。
 
 1. **连接模型**：在 API 配置中填写 Base URL 和 API Key，选择服务实际支持的协议、适配预设与模型，测试连接。
 2. **打开工作区**：选择一个本地项目；不涉及项目文件的问答和网页阅读可以从 Blank 任务开始。
@@ -86,8 +86,8 @@ ViaHarness 正在开发中，YAgent 现在即可独立使用。
 当前构建目标为 **Windows x64** 与 **macOS Apple Silicon（arm64）**。准备 Git、Node.js 与 npm；CI 使用 Node.js 22。
 
 ```bash
-git clone https://github.com/ViaTumLab/Yan-Agent.git
-cd Yan-Agent
+git clone https://github.com/ViaTumLab/YAgent.git
+cd YAgent
 npm ci
 npm start
 ```
@@ -118,7 +118,7 @@ npm run build:mac         # macOS Apple Silicon DMG（需在 macOS 上运行）
 | [renderer/](renderer/) | 桌面界面、浏览器与审阅交互 |
 | [test/](test/) | 模块测试、交互测试与运行时验证 |
 
-欢迎通过 [Issues](https://github.com/ViaTumLab/Yan-Agent/issues) 反馈问题，或提交 Pull Request 改进模型适配、工具连接、交互、文档与评测。问题报告请附版本、系统、连接类型、复现步骤和脱敏日志；功能修改请说明使用场景及实际验证结果。
+欢迎通过 [Issues](https://github.com/ViaTumLab/YAgent/issues) 反馈问题，或提交 Pull Request 改进模型适配、工具连接、交互、文档与评测。问题报告请附版本、系统、连接类型、复现步骤和脱敏日志；功能修改请说明使用场景及实际验证结果。
 
 </details>
 
