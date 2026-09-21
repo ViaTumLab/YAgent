@@ -545,6 +545,10 @@ body.wallpaper-compat .review-quick-diff {
 .titlebar-sidebar-logo-dark { display: none; }
 html[data-theme="light"] .titlebar-sidebar-logo-dark { display: block; }
 html[data-theme="light"] .titlebar-sidebar-logo-light { display: none; }
+.titlebar-sidebar-logo-mac { display: none; }
+body.is-mac .titlebar-sidebar-logo-dark,
+body.is-mac .titlebar-sidebar-logo-light { display: none; }
+body.is-mac .titlebar-sidebar-logo-mac { display: block; }
 .window-view-switcher {
   position: relative;
   display: inline-flex;
@@ -581,6 +585,12 @@ body.is-mac .titlebar {
 body.is-mac .titlebar-left {
   padding-left: 76px;
   padding-top: 6px;
+}
+body.is-mac #sidebarToggle {
+  display: none;
+}
+body.is-mac .window-view-switcher {
+  margin-left: 0;
 }
 body.is-mac .titlebar-right {
   display: none;
@@ -671,6 +681,9 @@ body.is-mac .sidebar-brand-shell {
   letter-spacing: 0;
   color: var(--text);
 }
+.sidebar-brand-name-mac { display: none; }
+body.is-mac .sidebar-brand-name-default { display: none; }
+body.is-mac .sidebar-brand-name-mac { display: inline; }
 .sidebar-brand-version {
   margin-left: 7px;
   font-size: 10.5px;
@@ -2811,6 +2824,49 @@ body.is-mac .sidebar-brand-shell {
   padding: 6px;
   order: 9999;
 }
+/* macOS uses a quiet, Codex-inspired working state. Windows keeps the
+   existing capybara loader below. */
+.agent-progress-note.agent-loader-note-mac {
+  align-items: center;
+  min-height: 42px;
+  padding: 8px 4px;
+}
+.mac-agent-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text-faint);
+}
+.mac-agent-loader-mark {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+.mac-agent-loader-mark i {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.24;
+  animation: macAgentLoaderPulse 1.2s ease-in-out infinite;
+}
+.mac-agent-loader-mark i:nth-child(1) { top: 0; left: 6px; }
+.mac-agent-loader-mark i:nth-child(2) { top: 6px; right: 0; animation-delay: 0.15s; }
+.mac-agent-loader-mark i:nth-child(3) { bottom: 0; left: 6px; animation-delay: 0.3s; }
+.mac-agent-loader-mark i:nth-child(4) { top: 6px; left: 0; animation-delay: 0.45s; }
+.mac-agent-loader-label {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+@keyframes macAgentLoaderPulse {
+  0%, 55%, 100% { opacity: 0.22; transform: scale(0.82); }
+  20% { opacity: 0.9; transform: scale(1); }
+}
 .agent-loader-note .capybaraloader {
   font-size: 10px;
   margin: 0;
@@ -3649,10 +3705,16 @@ body.is-mac .sidebar-brand-shell {
   border-radius: 16px;
   transition: filter 0.2s ease;
 }
+.welcome-logo-mac { display: none; }
+body.is-mac .welcome-logo-default { display: none; }
+body.is-mac .welcome-logo-mac { display: block; filter: none; }
 .welcome-logo.small { margin-bottom: 10px; }
 /* Logo is black-on-transparent; invert to white for dark theme visibility */
 [data-theme="dark"] .welcome-logo img {
   filter: invert(1);
+}
+[data-theme="dark"] body.is-mac .welcome-logo .welcome-logo-mac {
+  filter: none;
 }
 .empty-header {
   display: none;
@@ -5608,6 +5670,20 @@ body.is-mac .sidebar-brand-shell {
   justify-content: center;
   align-items: center;
   padding-bottom: 0;
+}
+body.is-mac .app:not(.browser-focus-mode) .main.empty .composer-stage {
+  flex: 0 0 auto;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding-bottom: 18px;
+}
+body.is-mac .app:not(.browser-focus-mode) .main.empty .empty-header {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  justify-content: center;
+  margin: 0;
+  pointer-events: none;
 }
 .composer-wrap {
   width: 100%;
@@ -9974,6 +10050,7 @@ select.input { cursor: pointer; }
   .agent-progress-note.agent-shine-text,
   .gpt-thinking-line.agent-shine-text { animation: none; }
   .agent-loader-note .capybaraloader * { animation: none !important; }
+  .mac-agent-loader-mark i { animation: none !important; opacity: 0.58; transform: none; }
   .thinking-orb-dot { animation: none !important; }
   .tool-state-shine {
     background: none;

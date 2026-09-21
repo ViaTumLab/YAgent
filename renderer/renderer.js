@@ -12447,7 +12447,7 @@ function updateAgentTimelinePartElement(element, item, result, phase, presentati
     const variant = String(item.variant || '');
     if (variant === 'agent-loader') {
       if (previousState.variant !== variant) {
-        element.className = 'agent-progress-note agent-loader-note';
+        element.className = `agent-progress-note agent-loader-note${document.body?.classList.contains('is-mac') ? ' agent-loader-note-mac' : ''}`;
         element.setAttribute('role', 'status');
         element.setAttribute('aria-label', 'Agent 工作中');
         element.innerHTML = buildAgentLoaderMarkup();
@@ -13082,6 +13082,12 @@ function buildWorkNarrationElement(content) {
 
 // Uiverse: Capybara loader by Novaxlo (MIT). Source: https://uiverse.io/Novaxlo/kind-snail-5
 function buildAgentLoaderMarkup() {
+  if (document.body?.classList.contains('is-mac')) {
+    return '<div class="mac-agent-loader" aria-hidden="true">'
+      + '<span class="mac-agent-loader-mark"><i></i><i></i><i></i><i></i></span>'
+      + '<span class="mac-agent-loader-label">正在工作</span>'
+      + '</div>';
+  }
   return '<div class="capybaraloader" aria-hidden="true">'
     + '<div class="capybara">'
     + '<div class="capyhead">'
@@ -13143,7 +13149,7 @@ function buildProgressNoteElement(content, variant = '', item = {}) {
   const note = document.createElement(variant === 'stream-reconnect' ? 'details' : 'div');
   const value = String(content || '');
   if (variant === 'agent-loader') {
-    note.className = 'agent-progress-note agent-loader-note';
+    note.className = `agent-progress-note agent-loader-note${document.body?.classList.contains('is-mac') ? ' agent-loader-note-mac' : ''}`;
     note.setAttribute('role', 'status');
     note.setAttribute('aria-label', 'Agent 工作中');
     note.innerHTML = buildAgentLoaderMarkup();
@@ -24738,5 +24744,8 @@ window.YanPalaceSubmit = async function ({ prompt, workspace = '', model } = {})
     return { ok: false, error: error.message };
   } finally { palaceSubmissionPending = false; }
 };
-if (navigator.userAgent.includes('Mac')) document.body.classList.add('is-mac');
+if (navigator.userAgent.includes('Mac')) {
+  document.body.classList.add('is-mac');
+  document.querySelector('.sidebar-brand')?.setAttribute('aria-label', 'YAgent');
+}
 window.addEventListener('DOMContentLoaded', init);

@@ -154,6 +154,14 @@ const e2eUserDataDir = String(process.env.YAN_E2E_USER_DATA_DIR || '').trim();
 if (e2eUserDataDir) {
   fs.mkdirSync(e2eUserDataDir, { recursive: true });
   app.setPath('userData', path.resolve(e2eUserDataDir));
+} else if (
+  process.platform === 'darwin'
+  && typeof app.setPath === 'function'
+  && typeof app.getPath === 'function'
+) {
+  // The macOS product is now displayed as YAgent, but existing installs keep
+  // their sessions and settings under the original Yan Agent profile.
+  app.setPath('userData', path.join(app.getPath('appData'), 'Yan Agent'));
 }
 
 const isE2EMode = process.env.YAN_E2E_MODE === '1';

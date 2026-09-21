@@ -6,7 +6,7 @@
 
 面向真实工作区的跨平台桌面 Agent。连接你选择的模型，让它读取项目、定位代码、使用工具、协作修改、操作内置浏览器，并把执行过程与文件变化交付给你审阅。
 
-![Version](https://img.shields.io/badge/version-1.6.0-111111)
+![Version](https://img.shields.io/badge/version-1.6.1-111111)
 ![Windows](https://img.shields.io/badge/Windows-x64-2563eb)
 ![macOS](https://img.shields.io/badge/macOS-arm64-111111)
 ![Electron](https://img.shields.io/badge/Electron-31-47848f)
@@ -14,9 +14,9 @@
 
 **模型负责推理与生成，Yan 负责提供可用的工程环境。** 项目理解、精确编辑、状态持久化、权限、上下文、MCP、子代理与审阅是产品的一部分，不需要用户把每项能力重新拼装成独立工具。
 
-本文对应 `package.json` 的 **1.6.0**。1.6.0 的核心变化是专用模型适配、工程分析工具、长任务恢复、结构化子代理协作、审阅性能、网页注释，以及云顶天宫 Work GUI。产品介绍见 [YAgent 产品页](https://viatumlab.inkmindspace.com/product-intro.html)。
+本文对应 `package.json` 的 **1.6.1**。1.6.0 的核心变化是专用模型适配、工程分析工具、长任务恢复、结构化子代理协作、审阅性能、网页注释，以及云顶天宫 Work GUI；1.6.1 更新 macOS 品牌、图标、欢迎页、启动页和等待状态。产品介绍见 [YAgent 产品页](https://viatumlab.inkmindspace.com/product-intro.html)。
 
-> 当前为 v1.6.0 正式版。本文解释已经存在的代码及其边界，不把实验模块、工具可用性或测试文件数量等同于任务成功率。模型服务的可用性、价格、额度和参数支持以实际供应商为准。
+> 当前源码版本为 v1.6.1。本文解释已经存在的代码及其边界，不把实验模块、工具可用性或测试文件数量等同于任务成功率。模型服务的可用性、价格、额度和参数支持以实际供应商为准。
 
 <a id="contents"></a>
 ## 阅读导航
@@ -538,7 +538,7 @@ Work GUI 是真实任务系统的另一种展示与操作入口。当前宿主�
 
 ### 启动与字体
 
-启动页使用本地打包的 ReactBits Ghost Fibers 实现与 OGL 渲染资源，展示 Yan Agent 衬线字标，设计展示时长约 3 秒；实际冷启动仍受机器和初始化影响。源码和授权信息保留在 `renderer/splash/`。
+启动页按平台呈现：macOS 使用简洁的 YAgent 图标、字标与低对比渐变背景；Windows 保留本地打包的 ReactBits Ghost Fibers 与 OGL 渲染。设计展示时长约 3 秒；实际冷启动仍受机器和初始化影响。源码和授权信息保留在 `renderer/splash/`。
 
 阅读字体随包提供 Noto Serif SC 字体文件及 OFL 许可，降低中文内容依赖用户系统字体回退带来的差异。字体文件一致不代表不同 GPU、缩放比例和操作系统栅格化完全一致。
 
@@ -594,7 +594,7 @@ npm ci
 npm start
 ```
 
-`git clone` 得到远端当前版本，不一定是本文对应的 v1.6.0。需要使用包含本版源码的分支/发布版本。开发模式可用 `npm run dev`。
+`git clone` 得到远端当前版本，不一定是本文对应的 v1.6.1。需要使用包含本版源码的分支/发布版本。开发模式可用 `npm run dev`。
 
 ### 修改哪些文件后需要重新构建
 
@@ -617,7 +617,7 @@ npm run build:mac         # macOS Apple Silicon DMG（需在 macOS 上运行）
 
 构建脚本依次准备适配器、审阅、TTS 和启动页资源，再调用 electron-builder 生成平台产物。Windows 构建随后执行运行时、provider 和 CodeGraph 的打包校验。输出目录为 `dist/`，具体产物名以 `package.json` 为准。
 
-macOS 输出为 `dist/Yan.Agent-arm64-v1.6.0.dmg`（版本号以 `package.json` 为准），当前未签名、未公证，Intel Mac 安装包尚未配置。自动构建定义位于 `.github/workflows/macos-build.yml`。
+macOS 输出为 `dist/YAgent-arm64-v1.6.1.dmg`（版本号以 `package.json` 为准），当前未签名、未公证，Intel Mac 安装包尚未配置。自动构建定义位于 `.github/workflows/macos-build.yml`。
 
 `asarUnpack` 保留需要真实路径运行的 lib 与相关依赖，CodeGraph/officecli 等资源由 extraResources 处理。开发目录能运行不代表打包后路径一定正确，因此保留包后检查。
 

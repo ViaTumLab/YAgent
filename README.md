@@ -9,7 +9,7 @@
     <a href="https://github.com/ViaTumLab/YAgent"><img src="https://img.shields.io/badge/GitHub-334155?style=for-the-badge" height="28" alt="GitHub 源码"></a>
   </p>
   <p>
-    <img src="docs/assets/badge-version.svg" height="22" alt="版本 v1.6.0">
+    <img src="docs/assets/badge-version.svg" height="22" alt="版本 v1.6.1">
     <img src="docs/assets/badge-windows.svg" height="22" alt="支持 Windows x64">
     <img src="docs/assets/badge-macos.svg" height="22" alt="支持 macOS Apple Silicon">
     <a href="LICENSE"><img src="docs/assets/badge-license.svg" height="22" alt="MIT License"></a>
@@ -25,7 +25,9 @@ YAgent（Yan-Agent）是 ViaTum Lab 孵化出的一个开源客户端。连接�
 <a id="start"></a>
 ## 快速开始
 
-当前支持 **Windows x64** 与 **macOS Apple Silicon（arm64）**。Windows 安装包可从 [Releases](https://github.com/ViaTumLab/YAgent/releases) 下载；macOS 构建可在 [macOS build](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml) 中获取或从源码生成。本文对应源码版本 `1.6.0`，可下载资产以发布页和构建页为准。
+当前支持 **Windows x64** 与 **macOS Apple Silicon（arm64）**。安装包可从 [Releases](https://github.com/ViaTumLab/YAgent/releases) 下载；本文对应源码版本 `1.6.1`，可下载资产以发布页为准。
+
+macOS 安装包名称为 `YAgent-arm64-v1.6.1.dmg`。当前构建尚未进行 Apple 代码签名与公证，首次打开时 macOS 可能显示安全提示；请仅从本仓库 Releases 下载，并在确认来源后通过“系统设置 → 隐私与安全性”允许打开。Intel Mac 安装包尚未配置。
 
 1. **连接模型**：在 API 配置中填写 Base URL 和 API Key，选择服务实际支持的协议、适配预设与模型，测试连接。
 2. **打开工作区**：选择一个本地项目；不涉及项目文件的问答和网页阅读可以从 Blank 任务开始。
@@ -103,7 +105,7 @@ npm run build:portable    # Windows 便携包
 npm run build:mac         # macOS Apple Silicon DMG（需在 macOS 上运行）
 ```
 
-产物位于 `dist/`。macOS 输出为 `Yan.Agent-arm64-v1.6.0.dmg`（版本号以 `package.json` 为准），当前未签名、未公证，Intel Mac 安装包尚未配置。Windows 构建包含运行时资源准备和打包校验；Electron E2E 与真实 API 测试需单独运行。修改模型适配器等源码后，需更新对应 bundle，详见 [YAgent 技术文档](https://viatumlab.inkmindspace.com/yagent/#development)。
+产物位于 `dist/`。macOS 输出为 `YAgent-arm64-v1.6.1.dmg`（版本号以 `package.json` 为准），当前未签名、未公证，Intel Mac 安装包尚未配置。Windows 构建包含运行时资源准备和打包校验；Electron E2E 与真实 API 测试需单独运行。修改模型适配器等源码后，需更新对应 bundle，详见 [YAgent 技术文档](https://viatumlab.inkmindspace.com/yagent/#development)。
 
 <details>
 <summary>代码导航与贡献说明</summary>

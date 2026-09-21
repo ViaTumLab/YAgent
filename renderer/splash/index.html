@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Yan Agent</title>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'none'">
+  <script src="./platform.js"></script>
   <link rel="preload" href="./fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./splash.bundle.css">
   <link rel="stylesheet" href="./splash.css">
 </head>
 <body>
-  <main class="splash-shell" aria-label="Yan Agent">
+  <main class="splash-shell">
     <div id="background" aria-hidden="true"></div>
-    <h1 class="brand-name">Yan Agent</h1>
+    <div class="splash-brand">
+      <img class="splash-logo" src="../assets/logo-macos.svg" alt="" aria-hidden="true">
+      <h1 class="brand-name"><span class="brand-name-default">Yan Agent</span><span class="brand-name-mac">YAgent</span></h1>
+    </div>
   </main>
   <script src="./splash.bundle.js"></script>
 </body>

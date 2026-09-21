@@ -3,7 +3,7 @@
 (function installYanI18n(global) {
   const ZH_EN = Object.freeze({
     '主界面': 'Main', '新建任务': 'New task', 'Skill 市场': 'Skill market', 'MCP 服务': 'MCP services',
-    '设置': 'Settings', '宠物': 'Pet', '用户': 'User', '新对话': 'New conversation', '关于Yan Agent v1.6.0': 'About Yan Agent v1.6.0',
+    '设置': 'Settings', '宠物': 'Pet', '用户': 'User', '新对话': 'New conversation', '关于YAgent v1.6.1': 'About YAgent v1.6.1',
     '选择文件夹': 'Choose folder', '分支': 'Branch', '搜索分支': 'Search branches',
     '创建并检出新分支…': 'Create and checkout branch…', 'Git 图谱': 'Git graph', '置顶任务': 'Pin task',
     '重命名任务': 'Rename task', 'Git 工具': 'Git tools', 'Git 不可用': 'Git unavailable',

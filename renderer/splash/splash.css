@@ -12,11 +12,16 @@ html, body, .splash-shell, #background {
 body { background: #120f17; color: #faf7f2; user-select: none; }
 .splash-shell { position: relative; isolation: isolate; }
 #background { position: absolute; inset: 0; z-index: -1; }
-.brand-name {
+.splash-brand {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splash-logo,
+.brand-name-mac { display: none; }
+.brand-name {
   margin: 0;
   font-family: 'Yan Serif', 'Songti SC', SimSun, serif;
   font-size: clamp(58px, 9vw, 78px);
@@ -25,4 +30,46 @@ body { background: #120f17; color: #faf7f2; user-select: none; }
   letter-spacing: -0.045em;
   white-space: nowrap;
   pointer-events: none;
+}
+html.is-mac body {
+  background: #111315;
+  color: #f7f8fa;
+}
+html.is-mac .splash-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(52, 139, 246, 0.11), transparent 34%),
+    linear-gradient(180deg, #171a1e 0%, #111315 100%);
+}
+html.is-mac .splash-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  pointer-events: none;
+}
+html.is-mac #background { display: none; }
+html.is-mac .splash-brand {
+  flex-direction: column;
+  gap: 20px;
+}
+html.is-mac .splash-logo {
+  display: block;
+  width: 82px;
+  height: 82px;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
+}
+html.is-mac .brand-name-default { display: none; }
+html.is-mac .brand-name-mac { display: inline; }
+html.is-mac .brand-name {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.is-mac .splash-logo { filter: none; }
 }

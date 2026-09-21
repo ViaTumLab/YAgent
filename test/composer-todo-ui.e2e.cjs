@@ -425,6 +425,8 @@ const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-composer-todo-e2e
       document.body.appendChild(headerHost);
       const loaderHost = document.createElement('div');
       document.body.appendChild(loaderHost);
+      const platformWasMac = document.body.classList.contains('is-mac');
+      document.body.classList.remove('is-mac');
       renderAgentRunBody(loaderHost, {
         status: 'working',
         startedAt: Date.now(),
@@ -450,6 +452,26 @@ const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-composer-todo-e2e
       });
       const loaderLegTransformAfter = loaderLeg ? getComputedStyle(loaderLeg).transform : '';
       loaderHost.remove();
+      const macLoaderHost = document.createElement('div');
+      document.body.appendChild(macLoaderHost);
+      document.body.classList.add('is-mac');
+      renderAgentRunBody(macLoaderHost, {
+        status: 'working',
+        startedAt: Date.now(),
+        timeline: [{ type: 'progress', variant: 'agent-loader', content: '' }]
+      });
+      const macLoaderParts = {
+        root: macLoaderHost.querySelectorAll('.mac-agent-loader').length,
+        dots: macLoaderHost.querySelectorAll('.mac-agent-loader-mark i').length,
+        label: macLoaderHost.querySelector('.mac-agent-loader-label')?.textContent || '',
+        capybaras: macLoaderHost.querySelectorAll('.capybaraloader').length,
+        compactClass: macLoaderHost.querySelectorAll('.agent-loader-note-mac').length
+      };
+      const macLoaderAnimations = Array.from(macLoaderHost.querySelectorAll('.mac-agent-loader-mark i'))
+        .flatMap(dot => dot.getAnimations())
+        .map(animation => animation.animationName);
+      macLoaderHost.remove();
+      document.body.classList.toggle('is-mac', platformWasMac);
       const headerRun = {
         status: 'working',
         startedAt: Date.now() - 2500,
@@ -490,6 +512,8 @@ const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-composer-todo-e2e
         loaderAnimationPlayStates,
         loaderLegTransformBefore,
         loaderLegTransformAfter,
+        macLoaderParts,
+        macLoaderAnimations,
         textContent: openCodeTimelineItem(runCtx, 'text:text-visible')?.content || '',
         partialContent: runCtx.partialContent
       };
@@ -537,6 +561,18 @@ const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-composer-todo-e2e
     assert.notEqual(
       openCodeWaitResult.loaderLegTransformBefore,
       openCodeWaitResult.loaderLegTransformAfter,
+      JSON.stringify(openCodeWaitResult)
+    );
+    assert.deepEqual(openCodeWaitResult.macLoaderParts, {
+      root: 1,
+      dots: 4,
+      label: '正在工作',
+      capybaras: 0,
+      compactClass: 1
+    }, JSON.stringify(openCodeWaitResult));
+    assert.deepEqual(
+      openCodeWaitResult.macLoaderAnimations,
+      ['macAgentLoaderPulse', 'macAgentLoaderPulse', 'macAgentLoaderPulse', 'macAgentLoaderPulse'],
       JSON.stringify(openCodeWaitResult)
     );
     assert.equal(openCodeWaitResult.textContent, 'Finished.', JSON.stringify(openCodeWaitResult));

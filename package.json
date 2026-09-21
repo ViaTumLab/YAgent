@@ -1,6 +1,6 @@
 {
   "name": "yan-agent",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Yan Agent — a modern, minimalist Agent desktop client built with Electron",
   "main": "main.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "build": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win nsis --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
     "build:release": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win nsis portable --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
     "build:portable": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --win portable --publish never && npm run verify:packaged-runtime && npm run verify:packaged-providers && npm run verify:codegraph",
-    "build:mac": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --mac dmg --arm64 --publish never",
+    "build:mac": "npm run bundle:opencode-provider && npm run bundle:dsh-review && npm run bundle:tts && npm run bundle:splash && electron-builder --mac dmg --arm64 --publish never --config.productName=YAgent",
     "bundle:splash": "node scripts/build-splash.cjs"
   },
   "author": "",
@@ -128,7 +128,7 @@
       ]
     },
     "dmg": {
-      "artifactName": "Yan.Agent-${arch}-v${version}.${ext}"
+      "artifactName": "YAgent-${arch}-v${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -139,10 +139,10 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Yan Agent",
-      "artifactName": "Yan.Agent.Setup.v1.6.0.${ext}"
+      "artifactName": "Yan.Agent.Setup.v${version}.${ext}"
     },
     "portable": {
-      "artifactName": "Yan.Agent.Portable.v1.6.0.${ext}"
+      "artifactName": "Yan.Agent.Portable.v${version}.${ext}"
     }
   },
   "dependencies": {

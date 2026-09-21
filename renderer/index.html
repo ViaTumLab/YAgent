@@ -23,6 +23,7 @@
         <button id="sidebarToggle" class="titlebar-sidebar-btn" title="切换侧边栏 (Ctrl+B)" aria-label="切换侧边栏" aria-controls="sidebar" aria-expanded="true">
           <img class="titlebar-sidebar-logo titlebar-sidebar-logo-dark" src="assets/logo.png" alt="" aria-hidden="true" />
           <img class="titlebar-sidebar-logo titlebar-sidebar-logo-light" src="assets/logo-light.png" alt="" aria-hidden="true" />
+          <img class="titlebar-sidebar-logo titlebar-sidebar-logo-mac" src="assets/logo-macos.svg" alt="" aria-hidden="true" />
         </button>
         <div id="windowViewSwitcher" class="window-view-switcher" role="tablist" aria-label="Yan 工作区视图">
           <button class="window-view-option active" type="button" role="tab" data-window-view="main" aria-selected="true">主界面</button>
@@ -49,8 +50,9 @@
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-brand-shell">
           <div class="sidebar-brand" aria-label="Yan Agent">
-            <span class="sidebar-brand-name">Yan Agent</span>
-            <span class="sidebar-brand-version">v1.6.0</span>
+            <span class="sidebar-brand-name sidebar-brand-name-default">Yan Agent</span>
+            <span class="sidebar-brand-name sidebar-brand-name-mac">YAgent</span>
+            <span class="sidebar-brand-version">v1.6.1</span>
           </div>
         </div>
         <nav id="agentSidebarNav" class="sidebar-nav">
@@ -409,7 +411,8 @@
         <div id="composerStage" class="composer-stage">
           <div id="emptyHeader" class="empty-header">
             <div class="welcome-logo">
-              <img src="assets/logo.png" alt="Yan Agent" width="72" height="72" />
+              <img class="welcome-logo-default" src="assets/logo.png" alt="Yan Agent" width="72" height="72" />
+              <img class="welcome-logo-mac" src="assets/logo-macos.svg" alt="YAgent" width="72" height="72" />
             </div>
             <h1 id="greeting">Good evening, Yanxi</h1>
           </div>
@@ -1901,7 +1904,7 @@
                     </div>
                     <div class="about-settings-row">
                       <div class="about-row-copy">
-                        <h3>关于Yan Agent v1.6.0</h3>
+                        <h3>关于YAgent v1.6.1</h3>
                       </div>
                       <div class="about-row-actions">
                         <button id="aboutReleaseNotesBtn" class="conn-pill" type="button" data-vision-relay-guide="release-notes" aria-haspopup="dialog" aria-controls="visionRelayGuideDialog">更新文档</button>
