@@ -74,6 +74,10 @@ YAgent 可独立连接兼容的模型服务。协议、模型能力与额度以�
 <a id="viaharness"></a>
 ## 与 ViaHarness 配合
 
+<p align="center">
+  <img src="docs/assets/viaharness-logo.png" width="420" alt="ViaHarness 独立产品 Logo">
+</p>
+
 ViaHarness 正在开发中，YAgent 现在即可独立使用。
 
 模型负责推理，YAgent 负责本地执行与结果审阅。ViaHarness 计划在两者之间，根据任务、执行阶段与预算，选择合适的模型和 Skill 策略。它将任务编排、上下文、记忆、评测与权限控制沉淀为统一底座，再面向金融、医疗、教育、科研、政务等场景定制领域知识、专业工具和规则，让经过验证的 Harness 能力跨场景复用，并以接近零成本的方式迁移到新场景。

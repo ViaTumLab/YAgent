@@ -18,7 +18,7 @@
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:center}
 .product-name{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:600;letter-spacing:-.5px;margin-bottom:25px}
 .product-name>span:last-child{font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);border-left:1px solid var(--line);padding-left:12px}
-.product-mark{display:grid;place-items:center;width:33px;height:33px;border:1px solid #25282e;border-radius:7px;font:20px Georgia,serif}
+.viaharness-logo{display:block;width:220px;height:auto;flex:0 1 auto}
 .product-copy h2{font-size:clamp(28px,3vw,42px);line-height:1.45;letter-spacing:-1.3px}
 .product-lead{margin-top:20px;font-size:15px;line-height:1.9;color:#3f444c;max-width:380px}
 .product-copy .section-description{margin-top:15px;max-width:430px;font-size:13px}
@@ -116,5 +116,5 @@
 .scenario-tabs button[aria-selected=true]{background:#f6f7f9}
 @media(max-width:800px){.art-bottom{font-size:9px;padding-top:9px}.scenario-tabs button{font-size:14px}}
 @media(max-width:640px){.art-bottom{font-size:8px;letter-spacing:.8px}.scenario-tabs{grid-template-columns:repeat(5,minmax(70px,1fr))}.scenario-tabs button{padding:16px 12px 14px;font-size:13px}.about-copy .team-background{font-size:14px;padding-left:14px}}
-@media(max-width:360px){.hero h1{font-size:33px}.product-name{align-items:flex-start;flex-wrap:wrap}.product-name>span:last-child{width:100%;border-left:0;border-top:1px solid var(--line);padding:9px 0 0}}
+@media(max-width:360px){.hero h1{font-size:33px}.product-name{align-items:flex-start;flex-wrap:wrap}.viaharness-logo{width:205px}.product-name>span:last-child{width:100%;border-left:0;border-top:1px solid var(--line);padding:9px 0 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
