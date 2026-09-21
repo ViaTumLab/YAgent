@@ -4,10 +4,11 @@
 
 [ViaTum Lab 公司网站](https://viatumlab.inkmindspace.com) · [YAgent 产品介绍](https://viatumlab.inkmindspace.com/product-intro.html)
 
-面向真实工作区的 Windows 桌面 Agent。连接你选择的模型，让它读取项目、定位代码、使用工具、协作修改、操作内置浏览器，并把执行过程与文件变化交付给你审阅。
+面向真实工作区的跨平台桌面 Agent。连接你选择的模型，让它读取项目、定位代码、使用工具、协作修改、操作内置浏览器，并把执行过程与文件变化交付给你审阅。
 
 ![Version](https://img.shields.io/badge/version-1.6.0-111111)
-![Platform](https://img.shields.io/badge/platform-Windows_x64-2563eb)
+![Windows](https://img.shields.io/badge/Windows-x64-2563eb)
+![macOS](https://img.shields.io/badge/macOS-arm64-111111)
 ![Electron](https://img.shields.io/badge/Electron-31-47848f)
 ![License](https://img.shields.io/badge/license-MIT-16a34a)
 
@@ -44,7 +45,7 @@
 
 ### 安装与首次配置
 
-在 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 中选择实际已发布的 Windows x64 安装包或便携包。README 的开发版本号不代表对应发布资产一定已经上传。
+当前支持 Windows x64 与 macOS Apple Silicon（arm64）。Windows 安装包从 [Releases](https://github.com/ViaTumLab/Yan-Agent/releases) 获取；macOS DMG 可从 [macOS build](https://github.com/ViaTumLab/Yan-Agent/actions/workflows/macos-build.yml) 的构建产物获取或从源码生成。README 的开发版本号不代表对应发布资产一定已经上传。
 
 1. 打开 API 配置，创建一个连接，填写名称、Base URL 和 API Key。
 2. 选择兼容预设和服务端实际支持的格式，测试连接；模型可从返回列表选择，也可以手填模型 ID。
@@ -566,10 +567,11 @@ Work GUI 是真实任务系统的另一种展示与操作入口。当前宿主�
 
 ### 数据存放
 
-应用以 Electron `userData` 下的 `YanData` 为稳定数据根，Windows 常见路径为：
+应用以 Electron `userData` 下的 `YanData` 为稳定数据根，常见路径为：
 
 ```text
-%APPDATA%\yan-agent\YanData
+Windows: %APPDATA%\yan-agent\YanData
+macOS:   ~/Library/Application Support/yan-agent/YanData
 ```
 
 真实位置以运行时 `userData` 配置为准。配置、会话、运行状态、记忆和辅助运行时位于应用数据目录；工作区内 `.yanagent` 还可能保存日志、快照、证据和 worktree。
@@ -583,9 +585,9 @@ Work GUI 是真实任务系统的另一种展示与操作入口。当前宿主�
 
 ### 从源码运行
 
-当前构建目标为 Windows x64。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
+当前构建目标为 Windows x64 与 macOS Apple Silicon（arm64）。需要可用的 Node.js/npm 和 Git；Node 版本应与锁文件及依赖的 engines 要求兼容。Serena、gh、tshark、Ghidra 等按所需功能另行准备。
 
-```powershell
+```bash
 git clone https://github.com/ViaTumLab/Yan-Agent.git
 cd Yan-Agent
 npm ci
@@ -607,12 +609,15 @@ npm start
 
 ### 打包
 
-```powershell
-npm run build
-npm run build:portable
+```bash
+npm run build             # Windows NSIS 安装包
+npm run build:portable    # Windows 便携包
+npm run build:mac         # macOS Apple Silicon DMG（需在 macOS 上运行）
 ```
 
-构建脚本依次准备适配器、审阅、TTS 和启动页资源，调用 electron-builder 生成 NSIS 或便携产物，再执行运行时、provider 和 CodeGraph 的打包校验。输出目录为 `dist/`，具体产物名以 `package.json` 为准。
+构建脚本依次准备适配器、审阅、TTS 和启动页资源，再调用 electron-builder 生成平台产物。Windows 构建随后执行运行时、provider 和 CodeGraph 的打包校验。输出目录为 `dist/`，具体产物名以 `package.json` 为准。
+
+macOS 输出为 `dist/Yan.Agent-arm64-v1.6.0.dmg`（版本号以 `package.json` 为准），当前未签名、未公证，Intel Mac 安装包尚未配置。自动构建定义位于 `.github/workflows/macos-build.yml`。
 
 `asarUnpack` 保留需要真实路径运行的 lib 与相关依赖，CodeGraph/officecli 等资源由 extraResources 处理。开发目录能运行不代表打包后路径一定正确，因此保留包后检查。
 

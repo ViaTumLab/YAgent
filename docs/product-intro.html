@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>YAgent — ViaTum Lab 的开源客户端</title>
-<meta name="description" content="Yan Agent 连接你选择的模型，让它读取项目、定位代码、使用工具、协作修改、操作内置浏览器，并把执行过程与文件变化交付给你审阅。">
+<title>YAgent — ViaTum Lab 孵化的开源客户端</title>
+<meta name="description" content="YAgent 是 ViaTum Lab 孵化的开源桌面客户端，支持 Windows x64 与 macOS Apple Silicon，连接模型、本地代码、工具与多 Agent 协作。">
 <link rel="icon" href="assets/logo-light.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -762,17 +762,19 @@ blockquote.ask footer {
 
 <header class="hero wrap" id="top">
   <div class="hero__inner">
-    <p class="eyebrow reveal" style="--i:0">ViaTum Lab 开源客户端 · Windows · v1.6.0 正式版</p>
+    <p class="eyebrow reveal" style="--i:0">ViaTum Lab 孵化的开源客户端 · Windows + macOS · v1.6.0</p>
     <h1 class="hero__title reveal" style="--i:1">模型负责推理与生成，<br>Yan 负责可用的<em>工程环境</em>。</h1>
-    <p class="hero__sub reveal" style="--i:2">YAgent（Yan-Agent）是 ViaTum Lab 的开源客户端。搭配 ViaHarness 使用，发挥 MAX 效果：ViaHarness 负责选择模型与策略，YAgent 负责本地代码、工具执行、多 Agent 协作与结果审阅。你也可以连接自己选择的模型，在熟悉的工作区中完成任务。</p>
+    <p class="hero__sub reveal" style="--i:2">YAgent（Yan-Agent）是 ViaTum Lab 孵化出的一个开源客户端。搭配 ViaHarness 使用，发挥 MAX 效果：ViaHarness 负责选择模型与策略，YAgent 负责本地代码、工具执行、多 Agent 协作与结果审阅。你也可以连接自己选择的模型，在熟悉的工作区中完成任务。</p>
     <div class="hero__actions reveal" style="--i:3">
-      <a class="btn btn--primary" href="https://github.com/ViaTumLab/Yan-Agent/releases">下载 Windows 安装包</a>
+      <a class="btn btn--primary" href="https://github.com/ViaTumLab/Yan-Agent/releases">下载 Windows</a>
+      <a class="btn btn--ghost" href="https://github.com/ViaTumLab/Yan-Agent/actions/workflows/macos-build.yml">获取 macOS 构建</a>
       <a class="btn btn--ghost" href="https://github.com/ViaTumLab/Yan-Agent">查看源码</a>
       <a class="hero__quiet" href="yagent/">阅读技术文档</a>
     </div>
     <div class="hero__badges reveal" style="--i:4">
       <span class="badge">v1.6.0</span>
       <span class="badge">Windows x64</span>
+      <span class="badge">macOS arm64</span>
       <span class="badge">Electron 31</span>
       <span class="badge">MIT</span>
       <span class="badge">基于 OpenCode 1.18.11</span>
@@ -974,6 +976,7 @@ blockquote.ask footer {
   <div class="section__body">
     <div class="duo-head"><span>界面上存在</span><span>它不证明</span></div>
     <div class="duo"><span class="duo__claim">版本徽章 v1.6.0</span><span class="duo__limit">不代表对应发布资产已上传——以 Releases 页实际为准</span></div>
+    <div class="duo"><span class="duo__claim">macOS Apple Silicon 构建</span><span class="duo__limit">当前未签名、未公证，Intel Mac 安装包尚未配置</span></div>
     <div class="duo"><span class="duo__claim">仓库里存在测试文件</span><span class="duo__limit">不等于某次发布已全部通过；发布说明记录实际执行项与结果</span></div>
     <div class="duo"><span class="duo__claim">仓库地图没显示某个文件</span><span class="duo__limit">不能证明文件不存在；地图用于选入口，不是完整语义索引</span></div>
     <div class="duo"><span class="duo__claim">工具出现在列表里</span><span class="duo__limit">会否使用仍取决于任务与模型；没有被强制纳入的完整 Workflow</span></div>
@@ -989,7 +992,7 @@ blockquote.ask footer {
   </div>
   <div class="section__body">
     <ol class="steps">
-      <li>从 Releases 下载 Windows x64 安装包或便携包。</li>
+      <li>Windows 从 Releases 下载安装包；macOS Apple Silicon 从构建页获取 DMG，或使用 <code>npm run build:mac</code> 从源码生成。</li>
       <li>打开 API 配置，创建连接：填写名称、Base URL 与 API Key，选择兼容预设并测试连接。</li>
       <li>选择主文本模型；图片理解、图片生成、视频生成按需单独配置。</li>
       <li>编码任务先选择项目工作区；普通问答、网页阅读可从 Blank 任务开始。</li>
@@ -1000,7 +1003,7 @@ blockquote.ask footer {
       「先定位这个项目的入口、主要模块和测试命令，说明证据，不修改文件。」
       <footer>推荐的第一条编码请求 · 检查模型连接、文件权限与项目工具是否正常</footer>
     </blockquote>
-    <p class="footnote">数据根目录 %APPDATA%\yan-agent\YanData · 敏感字段经 safeStorage 处理 · 反馈问题请附版本、系统与脱敏日志</p>
+    <p class="footnote">数据保存在 Electron userData 下的 YanData · 敏感字段经 safeStorage 处理 · 反馈问题请附版本、系统与脱敏日志</p>
   </div>
 </section>
 
@@ -1016,7 +1019,7 @@ blockquote.ask footer {
       <a class="foot__link" href="yagent/">技术文档</a>
       <a class="foot__link" href="https://github.com/ViaTumLab/Yan-Agent/blob/main/lib/THIRD_PARTY_NOTICES.md">第三方致谢</a>
     </div>
-    <p class="foot__colophon">YAN AGENT · ELECTRON 31 · 基于 OPENCODE 构建 · 本页信息对应 PACKAGE.JSON 1.6.0-BETA.4 · MIT LICENSE</p>
+    <p class="foot__colophon">YAN AGENT · WINDOWS x64 + macOS arm64 · ELECTRON 31 · 基于 OPENCODE 构建 · PACKAGE.JSON 1.6.0 · MIT LICENSE</p>
   </div>
 </footer>
 
