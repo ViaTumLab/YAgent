@@ -26,7 +26,7 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory docs
 
 ViaHarness 是 ViaTum Lab 的多场景统一 Harness 基础设施。产品区展示任务内智能路由，以及金融、医疗、教育、科研和政务五类目标场景的能力迁移方式；这些内容是能力架构与目标场景说明，不代表已落地客户案例。示意不调用真实模型或展示虚构价格。接入配置默认折叠，示例域名不代表线上服务，实际接入通过咨询邮箱联系。
 
-公司定位与研究方向来自用户提供的《Harness Factory 商业计划书》，按 ViaTum Lab 品牌重新组织。YAgent 能力基于仓库 README，不把 BP 中的规划描述为已经发布的 API 或服务。客户端配图为工作流示意，并非实际产品截图。联系邮箱沿用 BP：`hbjin25@stu.pku.edu.cn`；修改时同步更新 HTML 与 JavaScript 中的邮箱。
+公司定位与研究方向来自用户提供的《Harness Factory 商业计划书》，按 ViaTum Lab 品牌重新组织。YAgent 能力基于仓库 README，不把 BP 中的规划描述为已经发布的 API 或服务。客户端配图为工作流示意，并非实际产品截图。官网联系邮箱为 `axiom@viatumlab.com`；修改时同步更新 HTML 与 JavaScript 中的邮箱。
 
 ## 发布
 

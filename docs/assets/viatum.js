@@ -46,7 +46,7 @@
   copyButton.addEventListener('click', async () => {
     clearTimeout(clearStatus);
     try {
-      await navigator.clipboard.writeText('hbjin25@stu.pku.edu.cn');
+      await navigator.clipboard.writeText('axiom@viatumlab.com');
       copyButton.textContent = '已复制 ✓';
       copyStatus.textContent = '邮箱已复制，可以粘贴到邮件客户端。';
     } catch { copyStatus.textContent = '请手动复制邮箱，或点击上方链接发送邮件。'; }
