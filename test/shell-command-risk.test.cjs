@@ -65,3 +65,15 @@ test('PowerShell deletion aliases require approval', () => {
   assert.equal(level('Get-ChildItem *.tmp | ri -Force'), 'high');
   assert.equal(level('rp -Path HKCU:\\Software\\Demo -Name Setting'), 'high');
 });
+
+test('env assignments and runner prefixes do not hide the command', () => {
+  assert.equal(level('FOO=1 rm -rf build'), 'high');
+  assert.equal(level('env FOO=1 rm -rf build'), 'high');
+  assert.equal(level('nohup rm -rf build'), 'high');
+  assert.equal(level('timeout 10 rm -rf build'), 'high');
+  assert.equal(level('nice -n 5 rm -rf build'), 'high');
+  assert.equal(level('exec rm -rf build'), 'high');
+  assert.equal(level('NODE_ENV=test npm test'), 'normal');
+  assert.equal(level('timeout 60 npm test'), 'normal');
+  assert.equal(level('command -v rm'), 'normal');
+});
