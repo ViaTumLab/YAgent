@@ -102,3 +102,19 @@ test('encoded PowerShell commands require approval whatever they contain', () =>
   assert.equal(level('powershell -ExecutionPolicy Bypass -File scripts/build.ps1'), 'normal');
   assert.equal(level('pwsh -NoProfile -Command "Get-ChildItem"'), 'normal');
 });
+
+test('command substitutions are inspected', () => {
+  assert.equal(level('echo `rm -rf ~/project`'), 'high');
+  assert.equal(level('echo "$(rm -rf build)"'), 'high');
+  assert.equal(level('echo "$(echo "$(rm -rf build)")"'), 'high');
+  assert.equal(level(`bash -c 'echo "$(rm -rf build)"'`), 'high');
+  assert.equal(level('Write-Output "$(Remove-Item -Recurse build)"'), 'high');
+  assert.equal(level("echo '$(rm -rf build)'"), 'normal');
+  assert.equal(level('echo "built at $(date)"'), 'normal');
+  assert.equal(level('git commit -m "run `npm test` before pushing"'), 'normal');
+});
+
+test('substitution nesting stays bounded', () => {
+  const depth = 5000;
+  assert.equal(level(`echo ${'"$(echo '.repeat(depth)}hi${')"'.repeat(depth)}`), 'high');
+});
