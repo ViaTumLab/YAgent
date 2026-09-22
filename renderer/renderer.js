@@ -5189,7 +5189,12 @@ function bindTtsSettings() {
       if (event.target.closest('#ttsVoicePicker, #ttsVoicePickerMenu')) return;
       setTtsVoicePickerOpen(false);
     });
-    document.addEventListener('scroll', () => setTtsVoicePickerOpen(false), true);
+    // Scrolling the page moves the trigger away from the floating menu, but
+    // scrolling the voice list inside the menu must keep it open.
+    document.addEventListener('scroll', event => {
+      if (menu.contains(event.target)) return;
+      setTtsVoicePickerOpen(false);
+    }, true);
     window.addEventListener('resize', () => setTtsVoicePickerOpen(false));
   }
 }

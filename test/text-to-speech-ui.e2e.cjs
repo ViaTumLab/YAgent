@@ -120,6 +120,17 @@ const output = path.join(root, 'output', 'tts-read-aloud');
     const expanded = await page.evaluate(() => document.querySelector('#ttsVoicePickerTrigger').getAttribute('aria-expanded'));
     assert.equal(expanded, 'true', 'custom picker opens as a floating menu');
     await page.screenshot({ path: path.join(output, 'tts-voice-picker.png') });
+
+    // With the English voices the list scrolls, and scrolling it must keep it open.
+    const scrolled = await page.evaluate(async () => {
+      const menu = document.querySelector('#ttsVoicePickerMenu');
+      menu.scrollTop = menu.scrollHeight;
+      const top = menu.scrollTop;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      return { top, open: !menu.classList.contains('hidden') };
+    });
+    assert.ok(scrolled.top > 0, 'the voice list is long enough to scroll');
+    assert.equal(scrolled.open, true, 'scrolling the voice list keeps it open');
     await page.click('#ttsVoicePickerMenu [data-tts-voice="zh-CN-YunxiNeural"]');
     await page.waitForFunction(() => state.config?.tts?.voice === 'zh-CN-YunxiNeural', null, { timeout: 5000 });
     const pickerLabel = await page.evaluate(() => document.querySelector('#ttsVoicePickerLabel')?.textContent);
