@@ -118,3 +118,25 @@
 @media(max-width:640px){.art-bottom{font-size:8px;letter-spacing:.8px}.scenario-tabs{grid-template-columns:repeat(5,minmax(70px,1fr))}.scenario-tabs button{padding:16px 12px 14px;font-size:13px}.about-copy .team-background{font-size:14px;padding-left:14px}}
 @media(max-width:360px){.hero h1{font-size:33px}.product-name{align-items:flex-start;flex-wrap:wrap}.viaharness-logo{width:205px}.product-name>span:last-child{width:100%;border-left:0;border-top:1px solid var(--line);padding:9px 0 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Public core-team directory in About. Full membership stays in the company repository. */
+.team-showcase{margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
+.team-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}
+.team-kicker{display:block;font:8px var(--mono);letter-spacing:1.4px;color:#858c97}
+.team-heading h3{margin-top:9px;font-size:24px;font-weight:500;letter-spacing:-.6px}
+.team-repository{display:flex;align-items:center;gap:16px;padding-bottom:3px;border-bottom:1px solid #9da4ae;font-size:11px;color:#424851;white-space:nowrap}
+.team-repository span{font-family:var(--mono)}
+.team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.team-card{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:16px;min-height:116px;padding:20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink);transition:background .2s,color .2s}
+.team-card:hover{background:#f7f8fa}
+.team-monogram{display:grid;place-items:center;width:54px;height:54px;border:1px solid #cbd0d7;border-radius:50%;background:linear-gradient(145deg,#fff,#f1f3f6);font:11px var(--mono);letter-spacing:1px;color:#626a76}
+.team-member{display:flex;flex-direction:column;min-width:0}
+.team-member strong{font-size:14px;font-weight:500;line-height:1.5}
+.team-member strong em{font-style:normal;font-weight:400;color:#777e89;margin-left:4px}
+.team-member>span{margin-top:6px;font-size:11px;line-height:1.55;color:#4e555f}
+.team-member small{margin-top:5px;font-size:9px;color:#8a9099}
+.team-card>i{align-self:start;font:11px var(--mono);font-style:normal;color:#9299a3}
+.team-card-scientist{grid-column:1/-1}
+.team-footnote{margin-top:13px!important;font:9px var(--mono)!important;letter-spacing:.4px;color:#8a9099!important}
+@media(max-width:800px){.team-card{grid-template-columns:46px minmax(0,1fr) auto;gap:13px;padding:17px}.team-monogram{width:46px;height:46px}.team-member>span{font-size:10px}}
+@media(max-width:640px){.team-showcase{margin-top:40px;padding-top:25px}.team-heading{align-items:flex-start;flex-direction:column;gap:14px}.team-repository{font-size:11px}.team-grid{grid-template-columns:1fr}.team-card-scientist{grid-column:auto}.team-card{min-height:104px}.team-member strong{font-size:13px}.team-footnote{line-height:1.7!important}}
