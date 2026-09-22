@@ -100,7 +100,9 @@ const output = path.join(root, 'output', 'tts-read-aloud');
       description: document.querySelector('#generalSpeechTitle ~ .general-settings-group .settings-group-heading p')
     }));
     assert.ok(settings.voices.length >= 8, 'curated voice list renders in the custom picker');
-    assert.ok(settings.voices.includes('zh-CN-XiaoxiaoNeural'));
+    assert.equal(settings.voices[0], 'zh-CN-XiaoxiaoNeural', 'Xiaoxiao stays the first voice');
+    assert.ok(settings.voices.includes('en-US-AriaNeural'), 'English voices are offered');
+    assert.equal(settings.voices.at(-1), 'auto', 'the opt-in auto voice comes last');
     assert.equal(settings.rate, '0');
     assert.equal(settings.label, '+0%');
     assert.equal(settings.description, null, 'the meaningless heading description is gone');
@@ -124,6 +126,14 @@ const output = path.join(root, 'output', 'tts-read-aloud');
     const previewCall = await page.evaluate(() => window.__ttsLog.texts[window.__ttsLog.texts.length - 1]);
     assert.ok(previewCall.includes('Yan Agent'), 'preview synthesizes the sample sentence');
     await page.screenshot({ path: path.join(output, 'tts-settings.png') });
+
+    // The auto voice survives the round trip through the main process settings.
+    await page.click('#ttsVoicePickerTrigger');
+    await page.waitForSelector('#ttsVoicePickerMenu:not(.hidden) [data-tts-voice="auto"]', { timeout: 10000 });
+    await page.click('#ttsVoicePickerMenu [data-tts-voice="auto"]');
+    await page.waitForFunction(() => state.config?.tts?.voice === 'auto', null, { timeout: 5000 });
+    const autoLabel = await page.evaluate(() => document.querySelector('#ttsVoicePickerLabel')?.textContent);
+    assert.ok(autoLabel.includes('自动'), 'picker label shows the auto voice');
 
     assert.deepEqual(errors, []);
     console.log(JSON.stringify({

@@ -4825,16 +4825,9 @@ async function handleMessageAction(action, el) {
 // ============================================================
 const SPEECH_DEFAULT_VOICE = 'zh-CN-XiaoxiaoNeural';
 const SPEECH_SKIP_SELECTOR = 'pre, code, table, .msg-actions, .agent-activity, .generated-image-result, .generated-video-result, [data-tts-skip]';
-const TTS_VOICE_OPTIONS = Object.freeze([
-  { id: 'zh-CN-XiaoxiaoNeural', label: '晓晓 · 女声温柔' },
-  { id: 'zh-CN-XiaoyiNeural', label: '晓伊 · 女声活泼' },
-  { id: 'zh-CN-YunxiNeural', label: '云希 · 男声阳光' },
-  { id: 'zh-CN-YunjianNeural', label: '云健 · 男声沉稳' },
-  { id: 'zh-CN-YunyangNeural', label: '云扬 · 男声播报' },
-  { id: 'zh-CN-YunxiaNeural', label: '云夏 · 男声少年' },
-  { id: 'zh-CN-liaoning-XiaobeiNeural', label: '晓北 · 女声东北' },
-  { id: 'zh-CN-shaanxi-XiaoniNeural', label: '晓妮 · 女声陕西' }
-]);
+// Shared with the main process through lib/tts-voices.js.
+const TTS_VOICE_OPTIONS = window.YanTtsVoices?.VOICE_OPTIONS
+  || Object.freeze([{ id: SPEECH_DEFAULT_VOICE, label: '晓晓 · 女声温柔' }]);
 let speechPlayback = null;
 let speechRequestSeq = 0;
 

@@ -1,7 +1,10 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const test = require('node:test');
+const vm = require('node:vm');
 const {
   AUTO_VOICE,
   AUTO_VOICES,
@@ -52,4 +55,22 @@ test('previews read a sample in the language of the chosen voice', () => {
   assert.equal(speechLanguage(chinese), 'zh');
   assert.equal(speechLanguage(english), 'en');
   assert.deepEqual(previewTexts(AUTO_VOICE), [chinese, english]);
+});
+
+const rendererRoot = path.join(__dirname, '..', 'renderer');
+
+test('the settings page loads the shared voice list before renderer.js', () => {
+  const html = fs.readFileSync(path.join(rendererRoot, 'index.html'), 'utf8');
+  const shared = html.indexOf('<script src="../lib/tts-voices.js"></script>');
+  assert.ok(shared > 0, 'index.html loads lib/tts-voices.js');
+  assert.ok(shared < html.indexOf('<script src="renderer.js"></script>'));
+});
+
+test('every voice label has an English translation', () => {
+  const sandbox = { window: {}, URLSearchParams };
+  vm.runInNewContext(fs.readFileSync(path.join(rendererRoot, 'i18n.js'), 'utf8'), sandbox);
+  const { translate } = sandbox.window.YanI18n;
+  for (const option of VOICE_OPTIONS) {
+    assert.doesNotMatch(translate(option.label, 'en'), /[㐀-鿿]/u, `${option.label} is not translated`);
+  }
 });
