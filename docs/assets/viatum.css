@@ -119,24 +119,36 @@
 @media(max-width:360px){.hero h1{font-size:33px}.product-name{align-items:flex-start;flex-wrap:wrap}.viaharness-logo{width:205px}.product-name>span:last-child{width:100%;border-left:0;border-top:1px solid var(--line);padding:9px 0 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* Public core-team directory in About. Full membership stays in the company repository. */
-.team-showcase{margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
-.team-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}
-.team-kicker{display:block;font:8px var(--mono);letter-spacing:1.4px;color:#858c97}
-.team-heading h3{margin-top:9px;font-size:24px;font-weight:500;letter-spacing:-.6px}
-.team-repository{display:flex;align-items:center;gap:16px;padding-bottom:3px;border-bottom:1px solid #9da4ae;font-size:11px;color:#424851;white-space:nowrap}
-.team-repository span{font-family:var(--mono)}
-.team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.team-card{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:16px;min-height:116px;padding:20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink);transition:background .2s,color .2s}
-.team-card:hover{background:#f7f8fa}
-.team-monogram{display:grid;place-items:center;width:54px;height:54px;border:1px solid #cbd0d7;border-radius:50%;background:linear-gradient(145deg,#fff,#f1f3f6);font:11px var(--mono);letter-spacing:1px;color:#626a76}
-.team-member{display:flex;flex-direction:column;min-width:0}
-.team-member strong{font-size:14px;font-weight:500;line-height:1.5}
-.team-member strong em{font-style:normal;font-weight:400;color:#777e89;margin-left:4px}
-.team-member>span{margin-top:6px;font-size:11px;line-height:1.55;color:#4e555f}
-.team-member small{margin-top:5px;font-size:9px;color:#8a9099}
-.team-card>i{align-self:start;font:11px var(--mono);font-style:normal;color:#9299a3}
-.team-card-scientist{grid-column:1/-1}
-.team-footnote{margin-top:13px!important;font:9px var(--mono)!important;letter-spacing:.4px;color:#8a9099!important}
-@media(max-width:800px){.team-card{grid-template-columns:46px minmax(0,1fr) auto;gap:13px;padding:17px}.team-monogram{width:46px;height:46px}.team-member>span{font-size:10px}}
-@media(max-width:640px){.team-showcase{margin-top:40px;padding-top:25px}.team-heading{align-items:flex-start;flex-direction:column;gap:14px}.team-repository{font-size:11px}.team-grid{grid-template-columns:1fr}.team-card-scientist{grid-column:auto}.team-card{min-height:104px}.team-member strong{font-size:13px}.team-footnote{line-height:1.7!important}}
+/* About: browse the people on the left, read the company story on the right. */
+.about-section{grid-template-columns:minmax(280px,360px) minmax(0,1fr);gap:clamp(44px,7vw,110px);align-items:center}
+.about-team{min-width:0}
+.about-team>.eyebrow{display:block;color:var(--muted);margin-bottom:24px}
+.team-carousel{border:1px solid #dfe4eb;border-radius:16px;background:#fff;box-shadow:0 12px 36px #293f5a08;overflow:hidden;touch-action:pan-y}
+.team-card-heading{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-size:12px}
+.team-card-heading>span:last-child{font:9px var(--mono);letter-spacing:1.4px;color:#8993a0}
+.team-portrait{position:relative;margin:0 16px;height:133px;border-radius:9px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 85% 10%,#e1edff,transparent 65%),linear-gradient(130deg,#f3f5f8,#edf1f7);color:#6a809e}
+.team-portrait:before,.team-portrait:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #bccbdd70;border-radius:50%;left:-115px;top:24px}
+.team-portrait:after{left:auto;right:-85px;top:-136px;width:270px;height:270px}
+.team-portrait>img{width:94px;height:94px;object-fit:cover;object-position:center 30%;border-radius:50%;border:4px solid #ffffff;box-shadow:0 4px 20px #3c57751a;z-index:1}
+.team-portrait>i{position:absolute;right:12px;bottom:12px;font:7px var(--mono);letter-spacing:1.5px;color:#91a0b3}
+.team-person{padding:24px 26px 21px}
+.team-role{display:block;font-size:11px;color:#57759c;letter-spacing:.3px;margin-bottom:11px}
+.team-person h3{font-size:28px;line-height:1.35;letter-spacing:-.7px;font-weight:500}
+.team-english{font:12px/1.5 var(--mono);color:#8b929d;margin-top:5px;min-height:18px}
+.team-school{font-size:12px;color:#545c67;margin-top:20px}
+.team-field{font-size:10px;line-height:1.6;color:#8a929e;margin-top:7px;min-height:16px}
+.team-person>a{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-top:24px;color:#485b73}
+.team-person>a:hover{color:#1c64c9}
+.team-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 24px;padding:16px 0;border-top:1px solid #e8ebf0}
+.team-counter{font:10px var(--mono);color:#9199a5;white-space:nowrap}.team-counter b{font-weight:500;color:#34465d}
+.team-pagination{display:flex;gap:2px}
+.team-pagination button{display:grid;place-items:center;width:18px;height:28px;padding:0;background:none;border:0}
+.team-pagination button:before{content:"";width:4px;height:4px;border-radius:50%;background:#cbd2dc;transition:background .2s,transform .2s}
+.team-pagination button[aria-pressed=true]:before{background:#496b9a;transform:scale(1.5)}
+.team-arrows{display:flex;gap:7px}.team-arrows button{width:32px;height:32px;border:1px solid #dfe4eb;border-radius:50%;background:#fff;color:#53657d;font-size:16px;transition:background .2s}
+.team-arrows button:hover{background:#edf3fb}
+.team-repository{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 3px 0;font-size:11px;color:#697482}
+.team-repository>span:last-child{font:10px var(--mono);color:#3b536f}
+.team-repository:hover{color:#1c64c9}
+@media(min-width:641px) and (max-width:900px){.about-section{grid-template-columns:minmax(260px,.85fr) minmax(0,1fr);gap:32px}.about-principles{gap:12px;font-size:11px}.about-copy h2{font-size:28px}}
+@media(max-width:640px){.about-section{grid-template-columns:1fr;gap:38px;align-items:start}.about-team{width:100%;max-width:390px;justify-self:center}.team-card-heading{padding-top:18px}.team-portrait{height:120px}.team-person{padding-top:22px}.about-copy h2{font-size:28px}}

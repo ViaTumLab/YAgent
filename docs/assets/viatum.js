@@ -40,6 +40,41 @@
       });
     });
   });
+  const teamCarousel = document.querySelector('.team-carousel');
+  if (teamCarousel) {
+    const slides = [...teamCarousel.querySelectorAll('.team-slide')];
+    const dots = [...teamCarousel.querySelectorAll('[data-team-index]')];
+    const counter = teamCarousel.querySelector('.team-counter b');
+    let current = 0;
+    const showMember = (index) => {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => { slide.hidden = i !== current; });
+      dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === current)));
+      counter.textContent = String(current + 1).padStart(2, '0');
+    };
+    teamCarousel.querySelectorAll('[data-team-step]').forEach((button) => {
+      button.addEventListener('click', () => showMember(current + Number(button.dataset.teamStep)));
+    });
+    dots.forEach((dot, index) => dot.addEventListener('click', () => showMember(index)));
+    teamCarousel.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        showMember(current + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    let touchStart;
+    teamCarousel.addEventListener('touchstart', (event) => {
+      touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+    }, { passive: true });
+    teamCarousel.addEventListener('touchend', (event) => {
+      if (!touchStart) return;
+      const dx = event.changedTouches[0].clientX - touchStart.x;
+      const dy = event.changedTouches[0].clientY - touchStart.y;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) showMember(current + (dx < 0 ? 1 : -1));
+      touchStart = null;
+    }, { passive: true });
+    teamCarousel.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
+  }
   const copyButton = document.querySelector('.copy-email');
   const copyStatus = document.querySelector('.copy-status');
   let clearStatus;
