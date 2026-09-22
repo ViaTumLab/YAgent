@@ -59,3 +59,9 @@ test('deletions routed through find and xargs require approval', () => {
   assert.equal(level('find . -name "*.js" -exec grep -l TODO {} +'), 'normal');
   assert.equal(level('git ls-files | xargs wc -l'), 'normal');
 });
+
+test('PowerShell deletion aliases require approval', () => {
+  assert.equal(level('ri -Recurse -Force build'), 'high');
+  assert.equal(level('Get-ChildItem *.tmp | ri -Force'), 'high');
+  assert.equal(level('rp -Path HKCU:\\Software\\Demo -Name Setting'), 'high');
+});
