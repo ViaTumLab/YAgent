@@ -149,3 +149,13 @@ test('file deletion inside inline interpreter code requires approval', () => {
   assert.equal(level(`node -e "console.log(process.version)"`), 'normal');
   assert.equal(level('python -m pytest -q'), 'normal');
 });
+
+test('.NET file deletion calls in PowerShell require approval', () => {
+  assert.equal(level(`[System.IO.Directory]::Delete('build', $true)`), 'high');
+  assert.equal(level(`[IO.File]::Delete('notes.txt')`), 'high');
+  assert.equal(level('(Get-Item build).Delete()'), 'high');
+  assert.equal(level('Get-ChildItem *.tmp | ForEach-Object { $_.Delete() }'), 'high');
+  assert.equal(level(`powershell -Command "[IO.Directory]::Delete('build', $true)"`), 'high');
+  assert.equal(level(`[System.IO.File]::ReadAllText('notes.txt')`), 'normal');
+  assert.equal(level('(Get-Item build).FullName'), 'normal');
+});
