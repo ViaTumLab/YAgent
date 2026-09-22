@@ -90,6 +90,14 @@ const output = path.join(root, 'output', 'tts-read-aloud');
     assert.equal(stopped.pressed, 'false');
     assert.ok(stopped.text.includes('第一句正文。') && stopped.text.includes('第三句正文？'), 'wrapped segments preserve the reply text');
 
+    // Later previews need playback to finish again.
+    await page.evaluate(() => {
+      window.playSpeechAudio = async () => {
+        window.__ttsLog.played += 1;
+        return true;
+      };
+    });
+
     // Settings surface: custom voice picker, rate control and preview all wired.
     await page.evaluate(() => openSettings('general'));
     await page.waitForSelector('#ttsVoicePickerTrigger', { timeout: 5000 });
@@ -134,6 +142,27 @@ const output = path.join(root, 'output', 'tts-read-aloud');
     await page.waitForFunction(() => state.config?.tts?.voice === 'auto', null, { timeout: 5000 });
     const autoLabel = await page.evaluate(() => document.querySelector('#ttsVoicePickerLabel')?.textContent);
     assert.ok(autoLabel.includes('自动'), 'picker label shows the auto voice');
+
+    // Previews read a sample in the voice's own language; auto reads one per language.
+    const runPreview = async () => {
+      await page.waitForFunction(() => document.querySelector('#ttsPreviewBtn')?.dataset.busy !== 'true', null, { timeout: 5000 });
+      const before = await page.evaluate(() => window.__ttsLog.texts.length);
+      await page.click('#ttsPreviewBtn');
+      await page.waitForFunction(() => document.querySelector('#ttsPreviewBtn')?.dataset.busy === 'false', null, { timeout: 5000 });
+      return page.evaluate(count => window.__ttsLog.texts.slice(count), before);
+    };
+    const autoPreview = await runPreview();
+    assert.equal(autoPreview.length, 2, 'the auto voice previews one sample per language');
+    assert.match(autoPreview[0], /[一-鿿]/u, 'the first auto sample is Chinese');
+    assert.doesNotMatch(autoPreview[1], /[一-鿿]/u, 'the second auto sample is English');
+
+    await page.click('#ttsVoicePickerTrigger');
+    await page.waitForSelector('#ttsVoicePickerMenu:not(.hidden) [data-tts-voice="en-GB-RyanNeural"]', { timeout: 10000 });
+    await page.click('#ttsVoicePickerMenu [data-tts-voice="en-GB-RyanNeural"]');
+    await page.waitForFunction(() => state.config?.tts?.voice === 'en-GB-RyanNeural', null, { timeout: 5000 });
+    const englishPreview = await runPreview();
+    assert.equal(englishPreview.length, 1);
+    assert.doesNotMatch(englishPreview[0], /[一-鿿]/u, 'an English voice previews an English sample');
 
     assert.deepEqual(errors, []);
     console.log(JSON.stringify({

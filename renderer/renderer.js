@@ -5090,14 +5090,21 @@ async function previewTtsVoice() {
   if (button) { button.dataset.busy = 'true'; button.disabled = true; }
   try {
     const settings = speechSettings();
-    const result = await requestSpeechAudio({
-      text: '你好，我是 Yan Agent，正在为你朗读正文。',
-      voice: settings.voice,
-      rate: settings.rate,
-      requestId: `tts-preview-${++speechRequestSeq}`
-    });
-    if (result?.ok) await playSpeechAudio(null, result.audio);
-    else toast(`试听失败：${result?.error || '未知错误'}`);
+    // English voices read an English sample; auto reads one per language.
+    const samples = window.YanTtsVoices?.previewTexts(settings.voice) || ['你好，我是 Yan Agent，正在为你朗读正文。'];
+    for (const text of samples) {
+      const result = await requestSpeechAudio({
+        text,
+        voice: settings.voice,
+        rate: settings.rate,
+        requestId: `tts-preview-${++speechRequestSeq}`
+      });
+      if (!result?.ok) {
+        toast(`试听失败：${result?.error || '未知错误'}`);
+        break;
+      }
+      await playSpeechAudio(null, result.audio);
+    }
   } finally {
     if (button) { button.dataset.busy = 'false'; button.disabled = false; }
   }
