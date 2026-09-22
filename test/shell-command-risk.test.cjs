@@ -136,3 +136,16 @@ test('substitution nesting stays bounded', () => {
   const depth = 5000;
   assert.equal(level(`echo ${'"$(echo '.repeat(depth)}hi${')"'.repeat(depth)}`), 'high');
 });
+
+test('file deletion inside inline interpreter code requires approval', () => {
+  assert.equal(level(`python -c "import shutil; shutil.rmtree('build')"`), 'high');
+  assert.equal(level(`python3 -c "import os; os.remove('notes.txt')"`), 'high');
+  assert.equal(level(`py -3 -c "from pathlib import Path; Path('out.log').unlink()"`), 'high');
+  assert.equal(level(`node -e "require('fs').rmSync('dist', { recursive: true, force: true })"`), 'high');
+  assert.equal(level(`perl -e "unlink glob('*.log')"`), 'high');
+  assert.equal(level(`ruby -e "require 'fileutils'; FileUtils.rm_rf('tmp')"`), 'high');
+  assert.equal(level(`php -r "unlink('cache.txt');"`), 'high');
+  assert.equal(level(`python -c "print(1 + 1)"`), 'normal');
+  assert.equal(level(`node -e "console.log(process.version)"`), 'normal');
+  assert.equal(level('python -m pytest -q'), 'normal');
+});
