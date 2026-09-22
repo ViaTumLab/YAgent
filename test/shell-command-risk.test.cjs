@@ -36,6 +36,24 @@ test('history- and work-destroying git commands require approval', () => {
   assert.equal(level('git filter-repo --path src'), 'high');
 });
 
+test('whole-tree checkouts, forced refspecs and remote deletions require approval', () => {
+  assert.equal(level('git checkout .'), 'high');
+  assert.equal(level('git checkout :/'), 'high');
+  assert.equal(level('git push origin +main'), 'high');
+  assert.equal(level('git push origin +HEAD:main'), 'high');
+  assert.equal(level('git push -fu origin main'), 'high');
+  assert.equal(level('git push --force-with-lease=main:abc123 origin main'), 'high');
+  assert.equal(level('git push origin --delete feature/old'), 'high');
+  assert.equal(level('git push -d origin feature/old'), 'high');
+  assert.equal(level('git push origin :feature/old'), 'high');
+  assert.equal(level('git push --mirror origin'), 'high');
+  assert.equal(level('git push --prune origin'), 'high');
+  assert.equal(level('git checkout main'), 'normal');
+  assert.equal(level('git push -u origin feature/new-thing'), 'normal');
+  assert.equal(level('git push origin HEAD:refs/heads/feature/x'), 'normal');
+  assert.equal(level('git push --tags'), 'normal');
+});
+
 test('risk detection survives wrappers, chaining, and quoting', () => {
   assert.equal(level('bash -c "git reset --hard"'), 'high');
   assert.equal(level('git add . && git reset --hard'), 'high');
