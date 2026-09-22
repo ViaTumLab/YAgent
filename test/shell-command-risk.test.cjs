@@ -77,3 +77,18 @@ test('env assignments and runner prefixes do not hide the command', () => {
   assert.equal(level('timeout 60 npm test'), 'normal');
   assert.equal(level('command -v rm'), 'normal');
 });
+
+test('nested and combined shell invocations are unwrapped', () => {
+  assert.equal(level('bash -lc "rm -rf ~/project"'), 'high');
+  assert.equal(level("sh -ec 'rm -rf build'"), 'high');
+  assert.equal(level('zsh -c "rm -rf ~/project"'), 'high');
+  assert.equal(level('cmd /k rd /s /q build'), 'high');
+  assert.equal(level(`bash -c "sh -c 'rm -rf ~/project'"`), 'high');
+  assert.equal(level('nohup bash -c "rm -rf build"'), 'high');
+  assert.equal(level('bash -lc "npm test"'), 'normal');
+  assert.equal(level('bash -x scripts/check.sh'), 'normal');
+});
+
+test('unwrapping stays bounded on pathological nesting', () => {
+  assert.equal(level(`${'sh -c '.repeat(200)}echo done`), 'high');
+});
