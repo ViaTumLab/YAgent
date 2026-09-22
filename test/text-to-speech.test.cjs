@@ -10,6 +10,7 @@ const {
   createTextToSpeech,
   normalizeVoice,
   normalizeRate,
+  normalizeTtsConfig,
   rateToProsody,
   DEFAULT_VOICE,
   MAX_TEXT_LENGTH
@@ -100,6 +101,30 @@ test('normalization clamps rate and rejects malformed voices', () => {
   assert.equal(normalizeVoice('zh-CN-YunxiNeural'), 'zh-CN-YunxiNeural');
   assert.equal(normalizeVoice('bad voice!'), DEFAULT_VOICE);
   assert.equal(normalizeVoice(''), DEFAULT_VOICE);
+});
+
+test('the auto voice synthesizes each sentence with a voice for its language', async () => {
+  const dir = makeTmpDir();
+  const calls = [];
+  const service = createTextToSpeech({
+    cacheDir: dir,
+    clientFactory: () => createFakeClient({ calls })
+  });
+  const chinese = await service.synthesize({ text: '你好，世界。', voice: 'auto', rate: 0 });
+  const english = await service.synthesize({ text: 'Hello, world.', voice: 'auto', rate: 0 });
+  assert.equal(chinese.voice, 'zh-CN-XiaoxiaoNeural');
+  assert.equal(english.voice, 'en-US-AriaNeural');
+  assert.deepEqual(
+    calls.filter(call => call.type === 'metadata').map(call => call.voice),
+    ['zh-CN-XiaoxiaoNeural', 'en-US-AriaNeural']
+  );
+});
+
+test('saved settings keep the auto voice and still reject malformed voices', () => {
+  assert.deepEqual(normalizeTtsConfig({ voice: 'auto', rate: 30 }), { voice: 'auto', rate: 30 });
+  assert.deepEqual(normalizeTtsConfig({ voice: 'en-GB-RyanNeural' }), { voice: 'en-GB-RyanNeural', rate: 0 });
+  assert.deepEqual(normalizeTtsConfig({ voice: 'bad voice!', rate: 999 }), { voice: DEFAULT_VOICE, rate: 100 });
+  assert.deepEqual(normalizeTtsConfig(null), { voice: DEFAULT_VOICE, rate: 0 });
 });
 
 test('rejects empty and oversized text before touching the engine', async () => {

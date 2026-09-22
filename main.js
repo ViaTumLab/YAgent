@@ -35,7 +35,7 @@ const {
 const { detectImageType, generateImage } = require('./lib/image-generation');
 const { generateVideo } = require('./lib/video-generation');
 const { buildScreenshotRelayInput, describeImages, isRecoverableVisionRelayError } = require('./lib/vision-relay');
-const { createTextToSpeech, normalizeVoice, normalizeRate } = require('./lib/text-to-speech');
+const { createTextToSpeech, normalizeTtsConfig } = require('./lib/text-to-speech');
 const { analyzeWallpaperSource } = require('./lib/wallpaper-analysis');
 const {
   filterReviewSummary,
@@ -4000,14 +4000,6 @@ function normalizePetConfig(pet = {}) {
   return {
     enabled: next.enabled === true,
     selected: PET_IDS.includes(selected) ? selected : 'orb'
-  };
-}
-
-function normalizeTtsConfig(tts = {}) {
-  const next = tts && typeof tts === 'object' ? { ...tts } : {};
-  return {
-    voice: normalizeVoice(next.voice),
-    rate: normalizeRate(next.rate)
   };
 }
 
