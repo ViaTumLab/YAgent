@@ -92,3 +92,13 @@ test('nested and combined shell invocations are unwrapped', () => {
 test('unwrapping stays bounded on pathological nesting', () => {
   assert.equal(level(`${'sh -c '.repeat(200)}echo done`), 'high');
 });
+
+test('encoded PowerShell commands require approval whatever they contain', () => {
+  const encoded = Buffer.from('Write-Output hello', 'utf16le').toString('base64');
+  assert.equal(level(`powershell -EncodedCommand ${encoded}`), 'high');
+  assert.equal(level(`pwsh -NoProfile -enc ${encoded}`), 'high');
+  assert.equal(level(`powershell -e ${encoded}`), 'high');
+  assert.equal(level(`powershell /ec ${encoded}`), 'high');
+  assert.equal(level('powershell -ExecutionPolicy Bypass -File scripts/build.ps1'), 'normal');
+  assert.equal(level('pwsh -NoProfile -Command "Get-ChildItem"'), 'normal');
+});
