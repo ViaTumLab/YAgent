@@ -20,7 +20,10 @@ function removeGenerated(base, relative) {
   if (!target.startsWith(base + path.sep)) throw Error('Refusing cleanup outside generated Playwright staging');
   fs.rmSync(target, { recursive: true, force: true });
 }
-if (process.platform !== 'win32' || process.arch !== 'x64') throw Error('This Playwright runtime build targets Windows x64');
+if (!((process.platform === 'win32' && process.arch === 'x64') ||
+  (process.platform === 'darwin' && ['arm64', 'x64'].includes(process.arch)))) {
+  throw Error('This Playwright runtime build supports Windows x64 and macOS arm64/x64');
+}
 const npmCli = process.env.npm_execpath;
 if (!npmCli || !fs.existsSync(npmCli)) throw Error('Run this script through npm run build:playwright');
 execFileSync(process.execPath, [npmCli, 'ci', '--prefix', source, '--ignore-scripts', '--no-audit', '--no-fund'], { stdio: 'inherit', windowsHide: true });
@@ -33,17 +36,22 @@ execFileSync(process.execPath, [path.join(modules, 'playwright/cli.js'), 'instal
 // These are exclusively generated staging directories, never user storage.
 removeGenerated(output, 'node_modules');
 removeGenerated(output, 'browsers');
-fs.cpSync(modules, path.join(output, 'node_modules'), { recursive: true });
+fs.cpSync(modules, path.join(output, 'node_modules'), { recursive: true, verbatimSymlinks: true });
 for (const name of ['package.json', 'package-lock.json']) fs.copyFileSync(path.join(source, name), path.join(output, name));
 const core = require(path.join(modules, 'playwright-core/package.json'));
 const mcp = require(path.join(modules, '@playwright/mcp/package.json'));
 const browserSpec = require(path.join(modules, 'playwright-core/browsers.json')).browsers.find(item => item.name === 'chromium');
-const browserExecutable = `chromium-${browserSpec.revision}/chrome-win64/chrome.exe`;
+const resolvedExecutable = execFileSync(process.execPath, ['-e',
+  'process.stdout.write(require(process.argv[1]).chromium.executablePath())', path.join(modules, 'playwright')], {
+  env: { ...process.env, PLAYWRIGHT_BROWSERS_PATH: browsers }, encoding: 'utf8'
+}).trim();
+const browserExecutable = path.relative(browsers, resolvedExecutable).split(path.sep).join('/');
+if (browserExecutable.startsWith('../') || path.isAbsolute(browserExecutable)) throw Error('Chromium executable is outside staging');
 if (!fs.existsSync(path.join(browsers, browserExecutable))) throw Error(`Missing Chromium executable: ${browserExecutable}`);
 // Remove only stale generated browser revisions, not the matching runtime or
 // ffmpeg/winldd supporting executables installed by the pinned Playwright CLI.
 for (const item of fs.readdirSync(browsers)) {
-  if (/^chromium(?:_headless_shell)?-/.test(item) && item !== `chromium-${browserSpec.revision}`) removeGenerated(browsers, item);
+  if (/^chromium(?:_headless_shell)?-/.test(item) && item !== browserExecutable.split('/')[0]) removeGenerated(browsers, item);
 }
 removeGenerated(browsers, '.links');
 function inventory(base, skip = () => false) {

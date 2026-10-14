@@ -27,7 +27,9 @@
     "build:playwright": "node scripts/build-playwright-runtime.cjs",
     "verify:playwright": "node test/playwright-mcp.e2e.cjs && node test/playwright-connection.e2e.cjs",
     "build:cua-driver": "node scripts/build-cua-driver.cjs",
-    "bundle:intelligent-ui": "node scripts/build-intelligent-ui.cjs"
+    "bundle:intelligent-ui": "node scripts/build-intelligent-ui.cjs",
+    "build:mac": "node scripts/build-macos.cjs",
+    "verify:mac": "node scripts/verify-macos.cjs"
   },
   "author": "",
   "license": "MIT",
@@ -197,7 +199,6 @@
     "monaco-editor": "0.56.0",
     "msedge-tts": "^2.0.7",
     "opencode-ai": "1.18.11",
-    "opencode-windows-x64": "1.18.11",
     "sherpa-onnx-node": "1.13.8",
     "skills": "1.5.21",
     "tree-sitter-c": "^0.24.1",
@@ -210,5 +211,8 @@
     "tree-sitter-typescript": "^0.23.2",
     "web-tree-sitter": "^0.27.0",
     "zod": "4.4.3"
+  },
+  "optionalDependencies": {
+    "opencode-windows-x64": "1.18.11"
   }
 }

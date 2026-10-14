@@ -16,11 +16,13 @@
 
 <p align="center">
   <a href="#建设路线"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#下载安装"><img src="https://img.shields.io/badge/macOS-Apple_Silicon-111827?style=flat-square" alt="macOS Apple Silicon" /></a>
   <a href="#本地开发"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
 </p>
 
 <p align="center">
+  <a href="#下载安装">下载安装</a> ·
   <a href="#核心体验">核心体验</a> ·
   <a href="#本地开发">开始开发</a> ·
   <a href="#建设路线">建设路线</a> ·
@@ -31,6 +33,39 @@
 <br />
 
 ---
+
+## 下载安装
+
+**[下载 macOS Apple 芯片预览版](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.1)** · [所有版本](https://github.com/ViaTumLab/YAgent/releases) · [构建状态](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+
+| 平台 | 当前状态 | 获取方式 |
+| --- | --- | --- |
+| macOS · Apple 芯片（M 系列 / arm64） | 预览版，临时签名，未公证 | Release 中的 `.dmg` 和 `SHA256SUMS` |
+| macOS · Intel（x64） | 暂不支持 | 内核补丁仍需单独适配 |
+| Windows · x64 | 保留源码构建支持 | 在 Windows 上运行 `npm run build`；本次 Mac 预览版不含 Windows 安装包 |
+
+### 在 Mac 上安装
+
+1. 下载 Release 附件中的 `.dmg`，打开后将 **Yan Agent** 拖入 **Applications / 应用程序**。
+2. 从「应用程序」启动。当前版本尚未经过 Apple 公证，macOS 可能阻止首次打开；确认来自本仓库且校验值一致后，可按 [Apple 官方说明](https://support.apple.com/102445) 在「系统设置 → 隐私与安全性」中选择「仍要打开」。无需关闭整个系统的 Gatekeeper。
+3. 在设置中添加模型服务，配置 API 地址和 API Key，选择可用模型。模型服务的账号和用量费用由对应提供商提供，不包含在客户端中。
+4. 选择项目工作区，创建对话并发送任务。无需为了安装 DMG 而安装本项目的 npm 开发依赖。
+
+需要核对下载完整性时，将 `.dmg` 和 `SHA256SUMS` 下载到同一目录，在该目录运行：
+
+```sh
+shasum -a 256 -c SHA256SUMS
+```
+
+### macOS 预览版范围
+
+- 已验证打包应用启动、内置 OpenCode / CodeGraph / OfficeCLI 运行组件，以及 18 种模型服务的本地接口适配测试。测试使用模拟服务，不代表真实账号已经配置或认证。
+- Windows 专属桌面控制、应用快照和语音识别暂不支持 macOS。
+- Chromium 会在安装 Playwright 插件时下载；首次使用需要网络。
+- 更新需手动下载新的 Mac 安装包。Intel 版本、Developer ID 签名和 Apple 公证仍待完成。
+- Harness 管理、对话路由和 RSI 持续改进属于下文的建设规划，不是当前预览版的已完成功能。
+
+Apple 正式公证需要开发者会员，通常为 **99 美元/年**，当地价格以 [Apple 注册页面](https://developer.apple.com/programs/enroll/) 为准。公证服务包含在会员能力中，不按每个安装包另收费用。当前预览版的安装与源码构建不要求购买会员。具体准备、项目适配与提交命令见 [macOS 发布与公证指南](docs/macos-release.md)。
 
 ## 让不同的 Harness，在同一个工作区里各展所长
 
@@ -142,9 +177,9 @@ YAgent 已有的桌面工作区，为 MetaHarness 的管理与路由提供交互
 
 ## 本地开发
 
-当前源码主要面向 **Windows x64**。准备 Git、Node.js 22 和 npm：
+支持构建 **Windows x64** 与 **macOS Apple 芯片（arm64）** 版本。准备 Git、Node.js 22 和 npm：
 
-```powershell
+```sh
 git clone https://github.com/ViaTumLab/YAgent.git
 cd YAgent
 npm ci
@@ -157,10 +192,12 @@ npm run dev
 | `npm test` | 运行单元测试 |
 | `npm run build` | 构建 Windows 安装包 |
 | `npm run build:release` | 构建安装包与便携版 |
+| `npm run build:mac` | 构建 Apple 芯片 DMG，并验证打包结果、模型适配与应用启动 |
+| `npm run verify:mac` | 重新验证已构建的 macOS 应用 |
 
 部分功能需要准备额外运行时，可参考 `package.json` 中的 `build:desktop-bridge`、`build:cua-driver` 与 `build:playwright` 命令。构建产物位于 `dist/`。
 
-本仓库尚未发布安装包，后续版本以 [Releases](https://github.com/ViaTumLab/YAgent/releases) 为准。
+macOS 请使用 arm64 Node.js。构建时需要联网下载依赖和 Chromium 校验资源，详细步骤见 [macOS 发布指南](docs/macos-release.md)。GitHub Actions 会验证 Mac 构建；维护者推送 `macos-v*` 标签后，只有测试成功才会发布带校验值的预览版。
 
 ## 参与项目
 

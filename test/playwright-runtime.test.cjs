@@ -6,6 +6,31 @@ const os = require('node:os');
 const path = require('node:path');
 const { createRuntimeDefaults } = require('../lib/main/runtime-defaults');
 const runtime = require('../lib/playwright-runtime');
+const crypto = require('node:crypto');
+
+test('offline browser installation preserves relative framework links after relocation', { skip: process.platform === 'win32' }, async t => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-playwright-links-'));
+  t.after(() => fs.rmSync(temp, { recursive: true, force: true }));
+  const source = path.join(temp, 'source');
+  const appRoot = path.join(temp, 'resources/app.asar');
+  const jsRoot = runtime.resolveJsRoot(appRoot);
+  const dataDir = path.join(temp, 'data');
+  const browserExecutable = 'chromium/Versions/A/browser';
+  const content = Buffer.from('browser-fixture');
+  fs.mkdirSync(path.join(source, 'chromium/Versions/A'), { recursive: true });
+  fs.writeFileSync(path.join(source, browserExecutable), content);
+  fs.symlinkSync('A', path.join(source, 'chromium/Versions/Current'));
+  fs.mkdirSync(jsRoot, { recursive: true });
+  fs.writeFileSync(path.join(jsRoot, 'runtime.json'), JSON.stringify({
+    mcpVersion: runtime.MCP_VERSION, platform: process.platform, arch: process.arch, browserExecutable,
+    browserFiles: [{ path: browserExecutable, bytes: content.length, sha256: crypto.createHash('sha256').update(content).digest('hex') }]
+  }));
+  await runtime.installFrom(source, { appRoot, dataDir });
+  fs.rmSync(source, { recursive: true });
+  const current = path.join(runtime.browsersDir(dataDir), 'chromium/Versions/Current');
+  assert.equal(fs.readlinkSync(current), 'A');
+  assert.equal(fs.readFileSync(path.join(current, 'browser'), 'utf8'), content.toString());
+});
 
 test('Playwright is absent from the defaults until its plugin is installed', () => {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'yan-playwright-defaults-'));

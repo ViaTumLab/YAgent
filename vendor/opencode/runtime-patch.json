@@ -9,6 +9,15 @@
       "size": 174182280,
       "sourceSha256": "578d7eb3fff2c807fc0dedaab5e5d9177713a9560fa4304db6a0161111e9cc35",
       "patchedSha256": "344eedb423ef3c4d732af1f2ac8cc694b31a38850e7085705296739123ab77a5"
+    },
+    {
+      "package": "opencode-darwin-arm64",
+      "size": 138608738,
+      "sourceSha256": "f554a08dee4c34f4f43df63af72f0a6afbe57f955496853f411767718927bf2c",
+      "filter": "let k=W.modelID.includes(\"gpt-\")&&!W.modelID.includes(\"oss\")&&!W.modelID.includes(\"gpt-4\");if(Q.id===xr.id)return k;if(Q.id===Hr.id||Q.id===vr.id)return!k;",
+      "patchedSha256": "296e8a7174936a0e0e8575ec9d45a4857824ce96e16e906b7783b244c2e89d30",
+      "signedSha256": "79d14df2ed283b461d205c0e59848fb3c7d5d9e1772d7fb2c973c84506408b02",
+      "signedSize": 138626864
     }
   ]
 }

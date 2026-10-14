@@ -16,11 +16,13 @@
 
 <p align="center">
   <a href="#roadmap"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#download-and-install"><img src="https://img.shields.io/badge/macOS-Apple_Silicon-111827?style=flat-square" alt="macOS Apple Silicon" /></a>
   <a href="#local-development"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
 </p>
 
 <p align="center">
+  <a href="#download-and-install">Download</a> ·
   <a href="#the-core-experience">Core experience</a> ·
   <a href="#local-development">Get started</a> ·
   <a href="#roadmap">Roadmap</a> ·
@@ -31,6 +33,39 @@
 <br />
 
 ---
+
+## Download and install
+
+**[Download the macOS Apple Silicon preview](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.1)** · [All releases](https://github.com/ViaTumLab/YAgent/releases) · [Build status](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+
+| Platform | Status | How to get it |
+| --- | --- | --- |
+| macOS · Apple Silicon (M series / arm64) | Preview; ad hoc signed, not notarized | Download the release's `.dmg` and `SHA256SUMS` |
+| macOS · Intel (x64) | Not yet supported | Requires a separately verified kernel patch |
+| Windows · x64 | Source builds retained | Run `npm run build` on Windows; this Mac preview does not include a Windows installer |
+
+### Install on a Mac
+
+1. Download the `.dmg` release asset, open it, and drag **Yan Agent** into **Applications**.
+2. Launch it from Applications. This preview is not Apple-notarized, so macOS may block the first launch. After verifying the repository source and checksum, follow [Apple's instructions](https://support.apple.com/102445) to choose **Open Anyway** under **System Settings → Privacy & Security**. Do not disable Gatekeeper globally.
+3. Add a model connection in settings, configure its API URL and API key, and select an available model. Provider accounts and usage charges are separate from the desktop client.
+4. Select a project workspace, create a conversation, and send a task. Installing the DMG does not require this repository's npm development dependencies.
+
+To verify a download, save the `.dmg` and `SHA256SUMS` in the same directory and run:
+
+```sh
+shasum -a 256 -c SHA256SUMS
+```
+
+### macOS preview scope
+
+- Packaged startup, the bundled OpenCode / CodeGraph / OfficeCLI runtimes, and 18 model-provider adapters are verified. Adapter tests use local mock services, not live user accounts.
+- Windows desktop control, application snapshots, and speech recognition are unavailable on macOS.
+- Chromium is downloaded when installing the Playwright plugin; initial installation needs network access.
+- Updates require manually downloading the Mac installer. Intel support, Developer ID signing, and Apple notarization remain pending.
+- Harness management, conversation routing, and RSI improvement are roadmap items, not completed preview features.
+
+Formal notarization requires Apple Developer Program membership, normally **USD 99 per year**, with regional pricing shown during [Apple enrollment](https://developer.apple.com/programs/enroll/). Notarization is included in membership services rather than billed per installer. Installing or building the current preview does not require paid membership. See the [macOS release and notarization guide (Chinese)](docs/macos-release.md) for prerequisites and the work still needed in this project.
 
 ## Different harnesses. A shared place to work.
 
@@ -142,9 +177,9 @@ YAgent's existing desktop workspace provides the interface foundation for harnes
 
 ## Local development
 
-The current source primarily targets **Windows x64**. Install Git, Node.js 22, and npm:
+Builds are supported for **Windows x64** and **macOS Apple Silicon (arm64)**. Install Git, Node.js 22, and npm:
 
-```powershell
+```sh
 git clone https://github.com/ViaTumLab/YAgent.git
 cd YAgent
 npm ci
@@ -157,10 +192,12 @@ npm run dev
 | `npm test` | Run unit tests |
 | `npm run build` | Build the Windows installer |
 | `npm run build:release` | Build installer and portable packages |
+| `npm run build:mac` | Build an Apple Silicon DMG and verify resources, provider adapters, and startup |
+| `npm run verify:mac` | Recheck an existing macOS build |
 
 Some features require additional runtimes. See the `build:desktop-bridge`, `build:cua-driver`, and `build:playwright` scripts in `package.json`. Build outputs are written to `dist/`.
 
-This repository has not published installers yet. Future versions will be available on the [Releases](https://github.com/ViaTumLab/YAgent/releases) page.
+macOS requires arm64 Node.js. Building downloads dependencies and Chromium verification assets; see the [macOS release guide](docs/macos-release.md). GitHub Actions checks Mac builds and publishes a preview with checksums only after a `macos-v*` tag passes its build and tests.
 
 ## Contributing
 

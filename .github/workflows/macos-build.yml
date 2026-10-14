@@ -3,8 +3,12 @@ name: macOS build
 on:
   push:
     branches: [main, codex/merge-macos]
+    tags: ['macos-v*']
   pull_request:
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   macos-arm64:
@@ -17,11 +21,47 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: Check platform runtimes and packaging
+        run: node --test test/codegraph-runtime.test.cjs test/macos-update.test.cjs test/playwright-runtime.test.cjs test/packaging-asar-unpack.test.cjs test/update-checker.test.cjs test/opencode-runtime.test.cjs
+      - name: Check native AI file tools and permissions
+        run: node test/opencode-file-tools.e2e.cjs
       - run: npm run build:mac
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Generate download checksum
+        working-directory: dist
+        run: shasum -a 256 *.dmg > SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
           name: YAgent-macOS-arm64
-          path: dist/*.dmg
+          path: |
+            dist/*.dmg
+            dist/SHA256SUMS
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macOS-startup-check
+          path: output/macos-smoke.png
+          if-no-files-found: ignore
+
+  publish-preview:
+    if: startsWith(github.ref, 'refs/tags/macos-v')
+    needs: macos-arm64
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: YAgent-macOS-arm64
+          path: dist
+      - name: Publish verified macOS preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.dmg dist/SHA256SUMS \
+            --verify-tag --prerelease \
+            --title "YAgent ${GITHUB_REF_NAME#macos-v} · macOS Preview" \
+            --notes-file docs/releases/macos-preview.md

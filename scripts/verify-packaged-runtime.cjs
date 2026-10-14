@@ -18,6 +18,8 @@ const resourcesRoot = process.argv[2]
   : path.join(appRoot, 'dist', 'win-unpacked', 'resources');
 const archive = path.join(resourcesRoot, 'app.asar');
 const unpackedRoot = path.join(resourcesRoot, 'app.asar.unpacked');
+const windowsOnly = rel => rel.startsWith('lib/native/') || rel.startsWith('node_modules/sherpa-onnx-win-');
+const applicable = rel => process.platform === 'win32' || !windowsOnly(rel);
 
 if (!fs.existsSync(archive)) {
   console.error(`[verify-packaged-runtime] app.asar not found: ${archive}`);
@@ -145,7 +147,7 @@ for (const ref of refs) {
   const resolved = resolveRef(ref);
   if (resolved && !exists(resolved)) missing.push(`${resolved} (referenced by renderer/index.html as ${ref})`);
 }
-for (const rel of required) {
+for (const rel of required.filter(applicable)) {
   if (!exists(rel)) missing.push(`${rel} (required runtime file)`);
 }
 for (const rel of ['lib/main/snapshot-monitor.ps1', 'lib/main/snapshot-monitor.cs']) {
@@ -165,7 +167,7 @@ for (const rel of [
   'node_modules/sherpa-onnx-win-x64/onnxruntime_providers_shared.dll',
   'node_modules/sherpa-onnx-win-x64/sherpa-onnx-c-api.dll',
   'node_modules/sherpa-onnx-win-x64/sherpa-onnx-cxx-api.dll'
-]) {
+].filter(applicable)) {
   if (!headerNode(rel)?.unpacked || !fs.existsSync(unpackedPath(rel))) {
     missing.push(`${rel} (voice worker requires a physical unpacked file)`);
   }
@@ -283,7 +285,8 @@ for (const [index, page] of (releaseContext.window.YanReleaseNotes?.pages || [])
   if (!page.title || !Array.isArray(page.paragraphs)) missing.push(`release guide page ${index + 1} (invalid renderer data contract)`);
 }
 let extraResourceFiles = 0;
-for (const resource of sourcePackage.build.extraResources) {
+const buildConfig = process.platform === 'darwin' ? require('../build/electron-builder.mac.cjs') : sourcePackage.build;
+for (const resource of buildConfig.extraResources) {
   walk(path.join(appRoot, resource.from), (full, rel) => {
     const target = path.join(resourcesRoot, resource.to, ...rel.split('/'));
     if (!fs.existsSync(target)) missing.push(`${resource.to}/${rel} (extra resource)`);

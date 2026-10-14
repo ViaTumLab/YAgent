@@ -18838,7 +18838,7 @@ async function checkForUpdatesFromAbout() {
       return;
     }
     if (!result.ok) {
-      toast(`检查更新失败（${result.error || '未知错误'}）`);
+      toast(result.message || `检查更新失败（${result.error || '未知错误'}）`);
       return;
     }
     if (!result.hasUpdate) {

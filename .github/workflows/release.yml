@@ -24,6 +24,7 @@ jobs:
     env:
       YAN_RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
       YAN_UPDATE_MIRROR_URL: ${{ vars.YAN_UPDATE_MIRROR_URL }}
+      YAN_R2_ENABLED: ${{ secrets.R2_ACCESS_KEY_ID != '' && secrets.R2_SECRET_ACCESS_KEY != '' && secrets.R2_ACCOUNT_ID != '' && secrets.R2_BUCKET != '' && vars.YAN_UPDATE_MIRROR_URL != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,7 +50,7 @@ jobs:
       # R2 is an optional public mirror. The release remains fully usable when
       # these secrets are absent because clients fall back to GitHub Releases.
       - name: Mirror release to Cloudflare R2
-        if: ${{ secrets.R2_ACCESS_KEY_ID != '' && secrets.R2_SECRET_ACCESS_KEY != '' && secrets.R2_ACCOUNT_ID != '' && secrets.R2_BUCKET != '' && vars.YAN_UPDATE_MIRROR_URL != '' }}
+        if: env.YAN_R2_ENABLED == 'true'
         shell: bash
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
