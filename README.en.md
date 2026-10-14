@@ -36,11 +36,11 @@
 
 ## Download and install
 
-**[Download the macOS Apple Silicon preview](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.1)** · [All releases](https://github.com/ViaTumLab/YAgent/releases) · [Build status](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+**The macOS Apple Silicon preview has been built and verified locally; release assets are pending upload.** You can build from source using the instructions below. Published installers and checksums will appear on the [releases page](https://github.com/ViaTumLab/YAgent/releases). · [Build status](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
 
 | Platform | Status | How to get it |
 | --- | --- | --- |
-| macOS · Apple Silicon (M series / arm64) | Preview; ad hoc signed, not notarized | Download the release's `.dmg` and `SHA256SUMS` |
+| macOS · Apple Silicon (M series / arm64) | Preview; ad hoc signed, not notarized | Build from source; release assets pending upload |
 | macOS · Intel (x64) | Not yet supported | Requires a separately verified kernel patch |
 | Windows · x64 | Source builds retained | Run `npm run build` on Windows; this Mac preview does not include a Windows installer |
 

@@ -36,11 +36,11 @@
 
 ## 下载安装
 
-**[下载 macOS Apple 芯片预览版](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.1)** · [所有版本](https://github.com/ViaTumLab/YAgent/releases) · [构建状态](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+**macOS Apple 芯片预览包已完成本机构建与验证，Release 附件待上传。** 目前可按下文从源码构建。发布后可在 [版本下载页](https://github.com/ViaTumLab/YAgent/releases) 获取安装包与校验文件。· [构建状态](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
 
 | 平台 | 当前状态 | 获取方式 |
 | --- | --- | --- |
-| macOS · Apple 芯片（M 系列 / arm64） | 预览版，临时签名，未公证 | Release 中的 `.dmg` 和 `SHA256SUMS` |
+| macOS · Apple 芯片（M 系列 / arm64） | 预览版，临时签名，未公证 | 当前可源码构建；Release 附件待上传 |
 | macOS · Intel（x64） | 暂不支持 | 内核补丁仍需单独适配 |
 | Windows · x64 | 保留源码构建支持 | 在 Windows 上运行 `npm run build`；本次 Mac 预览版不含 Windows 安装包 |
 
