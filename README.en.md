@@ -7,7 +7,7 @@
 <h3 align="center">The best way to put MetaHarness into practice</h3>
 
 <p align="center">
-  <strong>One workspace. Multiple harnesses.<br />Choose how each conversation gets work done.</strong>
+  <strong>One workspace. Multiple harnesses.<br />Choose how each conversation runs. Turn feedback into improvement.</strong>
 </p>
 
 <p align="center">
@@ -36,6 +36,8 @@
 
 YAgent is an open-source desktop AI agent workspace maintained by ViaTumLab. Our goal is to bring harness configuration, selection, and task entry into one place: manage your own harnesses, select an execution route in the conversation workspace, and follow the work through to review.
 
+We also aim to continuously improve harnesses through user feedback and RSI (Recursive Self-Improvement), with a clear development goal: **make YAgent more effective the more you use it.**
+
 <table>
   <tr>
     <td width="33%" valign="top">
@@ -47,20 +49,20 @@ YAgent is an open-source desktop AI agent workspace maintained by ViaTumLab. Our
       <p>Select a harness for each conversation and send the task to the right execution environment.</p>
     </td>
     <td width="33%" valign="top">
-      <h3>03 · Review</h3>
-      <p>Follow progress, inspect outputs, and continue the conversation and review in the same workspace.</p>
+      <h3>03 · Improve</h3>
+      <p>Turn user feedback and task outcomes into evidence for RSI-driven harness improvements, helping future tasks perform better.</p>
     </td>
   </tr>
 </table>
 
 > [!NOTE]
-> A desktop agent workspace is available today. The harness management and conversation routing experience above is planned. Follow the [roadmap](#roadmap) for development priorities.
+> A desktop agent workspace is available today. Harness management, conversation routing, and feedback-driven RSI improvements are planned. Follow the [roadmap](#roadmap) for development priorities.
 
 ## Why MetaHarness
 
 Completing a task takes a model and a harness that organizes context, tools, execution, and feedback around it. Coding, research, and automation can each benefit from their own configuration and workflow.
 
-YAgent's MetaHarness direction is to **manage and select harnesses in a shared workspace, routing tasks to the execution environment you choose.** Model selection determines which model service to use; harness selection determines how the task is organized and executed.
+YAgent's MetaHarness direction is to **manage and select harnesses in a shared workspace, routing tasks to the execution environment you choose and continuously improving harnesses through feedback.** Model selection determines which model service to use; harness selection determines how the task is organized and executed.
 
 ## The core experience
 
@@ -78,6 +80,14 @@ Routing starts with an explicit user choice: **see the selected harness before s
 
 The goal is to bring execution progress, outputs, and artifacts from different harnesses into a shared workspace for follow-up conversations and review. File changes, tool calls, and approvals will be integrated progressively according to each harness's interfaces and adapter support.
 
+### 4. Make each piece of feedback a starting point for improvement
+
+The planned improvement loop will combine user ratings, corrections, and task outcomes with RSI algorithms to repeatedly propose, validate, and iterate on harness improvements. Areas for optimization include context organization, prompts and rules, tool use, and execution workflows, depending on the configuration and integration capabilities each harness exposes.
+
+**Run a task → Collect feedback → Generate improvements with RSI → Evaluate and validate → Update the harness → Run again.**
+
+Each candidate improvement will be evaluated against the current version before adoption, with version history and rollback support. The goal is to turn real usage into measurable improvements, making YAgent progressively better suited to your tasks and more effective over time.
+
 ```mermaid
 flowchart LR
     M[Manage harness configurations] --> S[Conversation workspace: select project and harness]
@@ -88,6 +98,10 @@ flowchart LR
     A --> W[Workspace: view progress and results]
     B --> W
     C --> W
+    W --> F[User feedback and task outcomes]
+    F --> I[RSI proposes harness improvements]
+    I --> V[Comparative evaluation and validation]
+    V -->|Update after validation| M
 ```
 
 *This diagram illustrates the planned interaction flow. Available harness integrations will depend on released adapters.*
@@ -100,6 +114,7 @@ flowchart LR
 | Research the same project | Start another conversation, choose a research harness, and collect sources and findings |
 | Use your own execution environment | Add a custom harness in management, then select it in the conversation workspace |
 | Keep configurations for different tasks | Maintain multiple harness configurations and choose the appropriate one when starting a task |
+| Improve recurring tasks | Provide feedback and corrections, then use RSI to propose and validate harness improvements for future tasks |
 
 ## Current workspace capabilities
 
@@ -121,6 +136,8 @@ YAgent's existing desktop workspace provides the interface foundation for harnes
 - [ ] **Harness management:** Configuration list, creation and editing, enable/disable controls, and connectivity checks.
 - [ ] **Workspace selection:** Select a harness when starting a conversation and clearly display the chosen route.
 - [ ] **Execution integration:** Send tasks to the selected harness and receive execution status and output.
+- [ ] **Feedback loop:** Collect user ratings, corrections, and task outcomes as evidence for harness improvements.
+- [ ] **Continuous improvement with RSI:** Generate candidate improvements, evaluate against the current version, and iterate with version tracking and rollback support.
 - [ ] **Adapter expansion:** Refine integration conventions and progressively support more harnesses and custom implementations.
 
 ## Local development
@@ -147,7 +164,7 @@ This repository has not published installers yet. Future versions will be availa
 
 ## Contributing
 
-Pull requests improving harness integrations, workspace routing, configuration management, model integrations, and usability are welcome. Share the harnesses you would like to connect and the workflows you need. Describe the use case, scope, and validation of your changes.
+Pull requests improving harness integrations, workspace routing, feedback mechanisms, RSI improvements and evaluation, configuration management, and usability are welcome. Share the harnesses you would like to connect and the workflows you need. Describe the use case, scope, and validation of your changes.
 
 ## Acknowledgments
 
