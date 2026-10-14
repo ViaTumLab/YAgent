@@ -25,6 +25,10 @@ npm run verify:mac
 
 `.github/workflows/macos-build.yml` 在主分支和 Pull Request 上验证 Mac 构建，在 `macos-v*` 标签上额外发布 GitHub **Pre-release**。只有构建与测试成功后，才上传 DMG 和 `SHA256SUMS`；上传使用 GitHub Actions 的仓库令牌，不需要把个人令牌提交到代码中。
 
+首次发布前，先打开仓库的 **Actions** 页面，确认已启用 Actions。仓库停用 Actions 时，推送标签不会触发构建。启用后若标签已存在，可在 **macOS build → Run workflow** 中选择该标签手动运行。
+
+也可以发布已在本机验证的包：在 `dist` 目录运行 `shasum -a 256 *.dmg > SHA256SUMS`，然后在 **Releases → Draft a new release** 选择对应标签，填写 `docs/releases/macos-preview.md` 中的说明，上传 DMG 与 `SHA256SUMS`，勾选 **Pre-release** 后发布。不要上传本机配置、账号资料或整个工作目录。
+
 维护者在确认要发布的提交已推送后，创建一个尚未使用的标签，例如：
 
 ```sh
