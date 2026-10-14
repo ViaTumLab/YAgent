@@ -1,14 +1,60 @@
-# YAgent
+<p align="center">
+  <img src="docs/assets/yagent-logo.svg" alt="YAgent Logo" width="112" height="112" />
+</p>
 
-### The best way to put MetaHarness into practice
+<h1 align="center">YAgent</h1>
 
-[中文](README.md) · [English](README.en.md)
+<h3 align="center">The best way to put MetaHarness into practice</h3>
 
-**One workspace. Multiple harnesses. Choose how each conversation gets work done.**
+<p align="center">
+  <strong>One workspace. Multiple harnesses.<br />Choose how each conversation gets work done.</strong>
+</p>
+
+<p align="center">
+  <a href="README.md">中文</a> · <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
+  <a href="#roadmap"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#local-development"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
+</p>
+
+<p align="center">
+  <a href="#the-core-experience">Core experience</a> ·
+  <a href="#local-development">Get started</a> ·
+  <a href="#roadmap">Roadmap</a> ·
+  <a href="https://github.com/ViaTumLab/YAgent/releases">Releases</a> ·
+  <a href="#acknowledgments">Acknowledgments</a>
+</p>
+
+<br />
+
+---
+
+## Different harnesses. A shared place to work.
 
 YAgent is an open-source desktop AI agent workspace maintained by ViaTumLab. Our goal is to bring harness configuration, selection, and task entry into one place: manage your own harnesses, select an execution route in the conversation workspace, and follow the work through to review.
 
-> **Project status:** A desktop agent workspace is available today. Harness management and conversation routing are the next core development priorities. The related experience described below is planned.
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>01 · Manage</h3>
+      <p>Configure your own harnesses and manage connections, startup parameters, and availability in one place.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>02 · Route</h3>
+      <p>Select a harness for each conversation and send the task to the right execution environment.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>03 · Review</h3>
+      <p>Follow progress, inspect outputs, and continue the conversation and review in the same workspace.</p>
+    </td>
+  </tr>
+</table>
+
+> [!NOTE]
+> A desktop agent workspace is available today. The harness management and conversation routing experience above is planned. Follow the [roadmap](#roadmap) for development priorities.
 
 ## Why MetaHarness
 
@@ -16,7 +62,7 @@ Completing a task takes a model and a harness that organizes context, tools, exe
 
 YAgent's MetaHarness direction is to **manage and select harnesses in a shared workspace, routing tasks to the execution environment you choose.** Model selection determines which model service to use; harness selection determines how the task is organized and executed.
 
-## The core experience: manage harnesses, choose a route
+## The core experience
 
 ### 1. Configure your own harnesses
 
@@ -59,9 +105,10 @@ flowchart LR
 
 YAgent's existing desktop workspace provides the interface foundation for harness management and routing.
 
-![Current desktop workspace](.github/readme/desktop.png)
-
-*Current workspace screenshot; the harness management and routing interfaces are planned.*
+<p align="center">
+  <img src=".github/readme/desktop.png" alt="YAgent current desktop workspace" width="100%" />
+</p>
+<p align="center"><sub>Current desktop workspace · Harness management and routing interfaces are planned</sub></p>
 
 - **Projects and code:** Read files, find symbols, analyze project structure, edit code, and run tests.
 - **Task collaboration:** Coordinate multiple agents and inspect progress and deliverables.

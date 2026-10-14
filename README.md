@@ -1,14 +1,60 @@
-# YAgent
+<p align="center">
+  <img src="docs/assets/yagent-logo.svg" alt="YAgent Logo" width="112" height="112" />
+</p>
 
-### MetaHarness的最佳实践方式
+<h1 align="center">YAgent</h1>
 
-[中文](README.md) · [English](README.en.md)
+<h3 align="center">MetaHarness的最佳实践方式</h3>
 
-**一个工作区，管理多种 Harness，让每次对话都能选择合适的执行方式。**
+<p align="center">
+  <strong>一个工作区，管理多种 Harness。<br />让每次对话，都有合适的执行方式。</strong>
+</p>
+
+<p align="center">
+  <a href="README.md">中文</a> · <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
+  <a href="#建设路线"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#本地开发"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
+</p>
+
+<p align="center">
+  <a href="#核心体验">核心体验</a> ·
+  <a href="#本地开发">开始开发</a> ·
+  <a href="#建设路线">建设路线</a> ·
+  <a href="https://github.com/ViaTumLab/YAgent/releases">版本发布</a> ·
+  <a href="#鸣谢">鸣谢</a>
+</p>
+
+<br />
+
+---
+
+## 让不同的 Harness，在同一个工作区里各展所长
 
 YAgent 是由 ViaTumLab 维护的开源桌面 AI 智能体工作区。我们希望把不同 Harness 的配置、选择与任务入口放到一起：你管理自己的 Harness，在对话工作区选择本次任务的执行路由，再查看过程、审阅结果。
 
-> **项目进展：** 当前已有桌面智能体工作区。Harness 管理与对话路由是下一阶段的核心建设方向，以下相关设计为规划中的体验。
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>01 · 统一管理</h3>
+      <p>配置自己的 Harness，集中管理连接方式、启动参数与可用状态。</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>02 · 对话路由</h3>
+      <p>在工作区选择本次对话的 Harness，让任务进入合适的执行环境。</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>03 · 结果回到工作区</h3>
+      <p>在同一处跟进执行进度、查看产物，并继续对话与审阅。</p>
+    </td>
+  </tr>
+</table>
+
+> [!NOTE]
+> 当前已有桌面智能体工作区。上方介绍的 Harness 管理与对话路由为下一阶段的核心规划，具体进展见[建设路线](#建设路线)。
 
 ## 为什么是 MetaHarness
 
@@ -16,7 +62,7 @@ YAgent 是由 ViaTumLab 维护的开源桌面 AI 智能体工作区。我们希�
 
 YAgent 将 MetaHarness 作为产品方向：**在统一工作区中管理和选择 Harness，把任务交给你指定的执行环境。** 模型选择与 Harness 选择各有作用，前者决定使用哪个模型服务，后者决定任务如何组织和执行。
 
-## 核心体验：管理 Harness，选择路由
+## 核心体验
 
 ### 1. 配置你自己的 Harness
 
@@ -59,9 +105,10 @@ flowchart LR
 
 YAgent 已有的桌面工作区，为 MetaHarness 的管理与路由提供交互基础。
 
-![当前桌面工作区](.github/readme/desktop.png)
-
-*当前工作区截图；Harness 管理与路由界面尚在规划中。*
+<p align="center">
+  <img src=".github/readme/desktop.png" alt="YAgent 当前桌面工作区" width="100%" />
+</p>
+<p align="center"><sub>当前桌面工作区 · Harness 管理与路由界面规划中</sub></p>
 
 - **项目与代码：** 阅读文件、检索符号、分析项目结构、修改代码与运行测试。
 - **任务协作：** 组织多个智能体处理任务，查看执行进度与交付结果。
