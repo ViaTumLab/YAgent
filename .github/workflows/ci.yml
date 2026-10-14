@@ -1,0 +1,21 @@
+name: unit-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # The application includes Windows-only runtime dependencies. Test on
+      # the supported OS and install the exact committed dependency graph.
+      # Unit tests do not need Electron downloads or native lifecycle builds.
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test

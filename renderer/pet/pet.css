@@ -1,0 +1,239 @@
+:root {
+  /* Shine Text motion adapted from SmoothUI (MIT). See THIRD_PARTY_LICENSES.txt. */
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  font-synthesis: none;
+  --pill-background: rgba(17, 19, 24, 0.86);
+  --pill-border: rgba(255, 255, 255, 0.13);
+  --shine-base: #b7bdc8;
+  --shine-highlight: #ffffff;
+  --shine-duration: 3.4s;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  letter-spacing: 0;
+  user-select: none;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  font: inherit;
+  letter-spacing: 0;
+}
+
+body[data-state="observing"] {
+  --shine-base: #b7a7ff;
+  --shine-highlight: #ffffff;
+  --shine-duration: 2.1s;
+}
+
+body[data-state="warning"] {
+  --shine-base: #f1ba63;
+  --shine-highlight: #fff7df;
+  --shine-duration: 1.75s;
+}
+
+body[data-state="paused"] {
+  --shine-base: #9097a2;
+  --shine-highlight: #e4e7eb;
+  --shine-duration: 4.4s;
+}
+
+body[data-state="completed"] {
+  --shine-base: #83c8ff;
+  --shine-highlight: #ffffff;
+  --shine-duration: 2.5s;
+}
+
+body[data-state="error"] {
+  --shine-base: #fb8b9d;
+  --shine-highlight: #fff0f3;
+  --shine-duration: 1.6s;
+}
+
+.pet-app,
+.pet-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pet-toggle {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 224px;
+  height: 224px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  -webkit-app-region: no-drag;
+}
+
+.pet-toggle:active { cursor: grabbing; }
+
+.entertainment-pet {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  width: 224px;
+  height: 224px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  -webkit-app-region: no-drag;
+}
+
+.entertainment-pet:active { cursor: grabbing; }
+.entertainment-pet:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.82); outline-offset: -4px; }
+
+.pet-sprite {
+  display: block;
+  width: 192px;
+  height: 208px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 1536px 1872px;
+  filter: drop-shadow(0 8px 9px rgba(0, 0, 0, 0.2));
+  transform-origin: 50% 78%;
+  transition: transform 180ms ease, filter 180ms ease;
+  will-change: transform, background-position;
+}
+
+.pet-sprite.is-animating {
+  background-position-y: calc(var(--sprite-row, 0) * -208px);
+  animation: petSpriteFrames var(--sprite-duration, 1100ms) steps(var(--sprite-frames, 6)) var(--sprite-iterations, infinite);
+}
+.pet-sprite.is-static { animation: none !important; background-size: contain; background-position: center !important; }
+
+.entertainment-pet:hover .pet-sprite { transform: scale(1.05); filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.25)); }
+.entertainment-pet:active .pet-sprite { transform: scale(0.95); }
+.entertainment-pet.is-dragging .pet-sprite { transform: scale(1.03) translateY(-3px); }
+
+body[data-pet="deepseek"] .pet-sprite { background-image: url("../../.pets/deepseek.webp"); }
+body[data-pet="claude"] .pet-sprite { background-image: url("../../.pets/claude.webp"); }
+
+.pet-toggle:focus-visible,
+.status-strip:focus-visible {
+  outline: 2px solid rgba(177, 161, 255, 0.85);
+  outline-offset: 2px;
+}
+
+#orbCanvas {
+  display: block;
+  width: 212px;
+  height: 212px;
+  filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.22));
+  transition: filter 220ms ease, transform 220ms ease;
+}
+
+.pet-toggle:hover #orbCanvas {
+  filter: drop-shadow(0 0 21px rgba(167, 139, 250, 0.32));
+  transform: scale(1.018);
+}
+
+.status-strip {
+  position: absolute;
+  left: 14px;
+  top: 190px;
+  width: 220px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  overflow: hidden;
+  border: 1px solid var(--pill-border);
+  border-radius: 999px;
+  background: var(--pill-background);
+  box-shadow: none;
+  backdrop-filter: blur(15px) saturate(135%);
+  cursor: grab;
+  touch-action: none;
+  -webkit-app-region: no-drag;
+}
+
+.status-strip:active { cursor: grabbing; }
+
+.shine-text {
+  width: 100%;
+  overflow: hidden;
+  background-image: linear-gradient(110deg, var(--shine-base) 40%, var(--shine-highlight) 50%, var(--shine-base) 60%);
+  background-position-x: 150%;
+  background-size: 250% 100%;
+  color: transparent;
+  font-size: 12px;
+  font-weight: 680;
+  line-height: 1;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: shineText var(--shine-duration) linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shineText {
+  0% { background-position-x: 150%; }
+  78%, 100% { background-position-x: -150%; }
+}
+
+.pet-data {
+  position: absolute; left: 14px; top: 164px; width: 220px; height: 70px;
+  box-sizing: border-box; padding: 8px 38px 8px 12px; border-radius: 8px;
+  background: rgba(250, 250, 250, 0.96); color: #202020;
+  border: 1px solid #bfc4c9; display: grid; align-content: center; gap: 3px;
+}
+.pet-data[hidden] { display: none; }
+body[data-layout="widget"] .pet-data { top: 90px; height: 100px; }
+.pet-data-label { font-size: 12px; cursor: grab; touch-action: none; }
+.pet-data-value { font-size: 18px; line-height: 24px; }
+.pet-data-status { font-size: 10px; color: #62676c; }
+.pet-data-label, .pet-data-value, .pet-data-status {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+}
+#petDataRefresh {
+  position: absolute; right: 6px; top: 8px; width: 28px; height: 28px;
+  border: 0; background: transparent; color: inherit; font-size: 22px; cursor: pointer;
+}
+#petDataRefresh:disabled { opacity: 0.4; cursor: default; }
+
+@keyframes petSpriteFrames {
+  from { background-position-x: 0; }
+  to { background-position-x: calc(var(--sprite-frames, 6) * -192px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #orbCanvas { transition: none; }
+  .pet-sprite { animation: none; }
+  .shine-text {
+    background: none;
+    color: var(--shine-base);
+    animation: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+#petFrontend {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+#petFrontend[hidden] { display: none; }

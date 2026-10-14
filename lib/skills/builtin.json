@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "skills": [
+    {
+      "id": "yan-uiverse",
+      "name": "Uiverse Web UI",
+      "desc": "调用 Yan Agent 预装的 Uiverse HTML/CSS 片段，为网页加入可直接落地的按钮、卡片、导航与页面区块",
+      "prompt": "请使用 Yan Agent 预装的 Uiverse 模式完成网页任务。先调用 list_ui_kit(kit=uiverse) 查看可用模式，再用 read_ui_kit 读取所需片段，按现有页面结构与视觉规范整合进 HTML/CSS 并验证。不要从网站重复下载片段。任务：\n\n{{cursor}}",
+      "tags": [
+        "web-design"
+      ],
+      "triggers": [
+        "Uiverse",
+        "Universe UI",
+        "静态网页",
+        "HTML 页面",
+        "网页组件"
+      ],
+      "tier": "builtin",
+      "version": 2,
+      "updatedAt": 1785945600000
+    },
+    {
+      "id": "market-anysearch",
+      "name": "AnySearch Search Engine",
+      "desc": "通过统一搜索运行时完成实时检索、并行搜索与 URL 内容提取，为 Agent 提供可核验的外部信息",
+      "prompt": "Use AnySearch for public GitHub and website research, current information lookup, and URL extraction. The skill is installed at <skill_dir>. Available operations: search, batch_search, extract, get_sub_domains. Use the exact resolved runtime path supplied by Yan Agent; do not scan the user home directory or unrelated agent folders.\n\n{{cursor}}",
+      "tags": [
+        "agent-rules"
+      ],
+      "triggers": [
+        "AnySearch",
+        "实时搜索",
+        "联网搜索",
+        "GitHub 搜索",
+        "网页检索",
+        "URL 提取"
+      ],
+      "tier": "builtin",
+      "version": 2,
+      "updatedAt": 1785945600000
+    }
+  ]
+}

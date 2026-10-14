@@ -1,0 +1,150 @@
+'use strict';
+
+const assert = require('node:assert/strict');
+const net = require('node:net');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
+const test = require('node:test');
+
+const appRoot = path.resolve(__dirname, '..');
+
+async function startBridge() {
+  const requests = [];
+  const closedOperations = new Set();
+  const server = net.createServer(socket => {
+    socket.setEncoding('utf8');
+    let input = '';
+    let operationId = '';
+    socket.on('data', chunk => {
+      input += chunk;
+      const newline = input.indexOf('\n');
+      if (newline < 0) return;
+      const request = JSON.parse(input.slice(0, newline));
+      operationId = String(request.operationId || '');
+      requests.push(request);
+      if (request.action === 'status') {
+        socket.end(`${JSON.stringify({ ok: true, result: { ok: true, url: 'https://example.test/' } })}\n`);
+      }
+      if (request.action === 'set_viewport') socket.end(`${JSON.stringify({ ok: true, result: { ok: true, viewport: request.params } })}\n`);
+      if (request.action === 'apply_annotation') socket.end(`${JSON.stringify({ok:true,result:{ok:true,styles:request.params.styles,text:request.params.text}})}\n`);
+      if (request.action === 'screenshot') {
+        socket.end(`${JSON.stringify({ ok: true, result: {
+          ok: true,
+          url: 'https://example.test/',
+          image: { mimeType: 'image/png', data: 'AAAA' }
+        } })}\n`);
+      }
+    });
+    socket.on('close', () => {
+      if (operationId) closedOperations.add(operationId);
+    });
+  });
+  await new Promise((resolve, reject) => {
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  return { server, port: server.address().port, requests, closedOperations };
+}
+
+function startMcp(port) {
+  const child = spawn(process.execPath, [path.join(appRoot, 'lib', 'yan-browser-mcp.js')], {
+    cwd: appRoot,
+    env: {
+      ...process.env,
+      YAN_BROWSER_BRIDGE_PORT: String(port),
+      YAN_BROWSER_BRIDGE_TOKEN: 'test-token',
+      YAN_BROWSER_ALLOW_NETWORK: 'true'
+    },
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
+  const pending = new Map();
+  let buffered = '';
+  child.stdout.setEncoding('utf8');
+  child.stdout.on('data', chunk => {
+    buffered += chunk;
+    while (buffered.includes('\n')) {
+      const newline = buffered.indexOf('\n');
+      const line = buffered.slice(0, newline).trim();
+      buffered = buffered.slice(newline + 1);
+      if (!line) continue;
+      const message = JSON.parse(line);
+      pending.get(message.id)?.(message);
+      pending.delete(message.id);
+    }
+  });
+  const send = message => child.stdin.write(`${JSON.stringify(message)}\n`);
+  const request = (id, method, params = {}) => new Promise((resolve, reject) => {
+    if (method === 'tools/call') params = { ...params, arguments: { task_id: 'run-test', ...params.arguments } };
+    const timer = setTimeout(() => reject(new Error(`MCP timeout: ${method}`)), 5_000);
+    pending.set(id, message => {
+      clearTimeout(timer);
+      resolve(message);
+    });
+    send({ jsonrpc: '2.0', id, method, params });
+  });
+  return { child, send, request };
+}
+
+async function waitFor(predicate, timeoutMs = 3_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeoutMs) {
+    if (predicate()) return;
+    await new Promise(resolve => setTimeout(resolve, 20));
+  }
+  throw new Error('Condition was not met before timeout.');
+}
+
+test('Yan browser MCP transports operation identity and cancellation', async t => {
+  const bridge = await startBridge();
+  const mcp = startMcp(bridge.port);
+  t.after(() => {
+    mcp.child.kill();
+    bridge.server.close();
+  });
+
+  const initialized = await mcp.request(1, 'initialize', { protocolVersion: '2025-03-26' });
+  assert.equal(initialized.result.serverInfo.name, 'Yan Built-in Browser');
+  const listed = await mcp.request(2, 'tools/list');
+  const snapshot = listed.result.tools.find(tool => tool.name === 'browser_snapshot');
+  assert.ok(listed.result.tools.find(tool => tool.name === 'browser_set_viewport'));
+  const viewport = await mcp.request(21, 'tools/call', { name: 'browser_set_viewport', arguments: { width: 390, height: 844 } });
+  assert.deepEqual(viewport.result.structuredContent.viewport, { width: 390, height: 844, yan_run_id: 'run-test' });
+  assert.match(snapshot.description, /latest snapshot/i);
+  assert.ok(listed.result.tools.find(tool=>tool.name==='browser_apply_annotation'));
+  const annotation=await mcp.request(20,'tools/call',{name:'browser_apply_annotation',arguments:{text:'修改文字',styles:{fontSize:'23px'}}});
+  assert.equal(annotation.result.structuredContent.text,'修改文字');
+  assert.equal(annotation.result.structuredContent.styles.fontSize,'23px');
+
+  const status = await mcp.request(3, 'tools/call', { name: 'browser_status', arguments: {} });
+  assert.equal(status.result.structuredContent.url, 'https://example.test/');
+  assert.match(bridge.requests[0].operationId, /^browser-/);
+  assert.equal(bridge.requests[0].token, 'test-token');
+  assert.ok(listed.result.tools.every(tool => tool.inputSchema.required.includes('task_id')));
+  const missing = await mcp.request(30, 'tools/call', { name: 'browser_status', arguments: { task_id: '' } });
+  assert.equal(missing.result.isError, true);
+  const other = await mcp.request(31, 'tools/call', { name: 'browser_status', arguments: { task_id: 'run-other' } });
+  assert.equal(other.result.isError, false);
+  assert.equal(bridge.requests.at(-1).params.yan_run_id, 'run-other');
+  await mcp.request(32, 'tools/call', { name: 'browser_history', arguments: { task_id: 'history-run', action: 'status' } });
+  assert.equal(bridge.requests.at(-1).params.yan_run_id, 'history-run');
+
+  const screenshotTool = listed.result.tools.find(tool => tool.name === 'browser_screenshot');
+  assert.equal(screenshotTool.inputSchema.properties.question.type, 'string');
+  assert.equal(screenshotTool.inputSchema.properties.compare_to_previous.type, 'boolean');
+  const screenshot = await mcp.request(4, 'tools/call', { name: 'browser_screenshot',
+    arguments: { question: '双皮带是否可见', compare_to_previous: true } });
+  assert.equal(screenshot.result.structuredContent.ok, true);
+  assert.equal(screenshot.result.content.some(part => part.type === 'image'), true);
+  const screenshotRequest = bridge.requests.find(request => request.action === 'screenshot');
+  assert.equal(screenshotRequest.params.question, '双皮带是否可见');
+  assert.equal(screenshotRequest.params.compare_to_previous, true);
+
+  const waiting = mcp.request(5, 'tools/call', { name: 'browser_wait', arguments: { timeout_ms: 5000 } });
+  await waitFor(() => bridge.requests.some(request => request.action === 'wait'));
+  const waitRequest = bridge.requests.find(request => request.action === 'wait');
+  mcp.send({ jsonrpc: '2.0', method: 'notifications/cancelled', params: { requestId: 5 } });
+  const cancelled = await waiting;
+  assert.equal(cancelled.result.isError, true);
+  assert.equal(cancelled.result.structuredContent.code, 'BROWSER_ACTION_CANCELLED');
+  await waitFor(() => bridge.closedOperations.has(waitRequest.operationId));
+});
