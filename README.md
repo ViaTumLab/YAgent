@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="docs/assets/yagent-logo.svg" alt="YAgent Logo" width="112" height="112" />
+  <img src="docs/assets/openmetaharness-logo.png" alt="OpenMetaHarness Logo" width="112" />
 </p>
 
-<h1 align="center">YAgent</h1>
+<h1 align="center">OpenMetaHarness</h1>
 
-<h3 align="center">MetaHarness的最佳实践方式</h3>
+<h3 align="center">Build, manage, and evolve your agent harnesses.</h3>
 
 <p align="center">
-  <strong>一个工作区，管理多种 Harness。<br />让每次对话选对执行方式，让每次反馈推动持续改进。</strong>
+  <strong>用户与 AI 共同构建、管理和持续改进 Harness。<br />把 Agent 的工作方式变成可编辑、可运行、可评估的配置。</strong>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="#建设路线"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#建设路线"><img src="https://img.shields.io/badge/Harness_Studio-Planned-648AB8?style=flat-square" alt="Harness Studio: planned" /></a>
   <a href="#下载安装"><img src="https://img.shields.io/badge/macOS-Apple_Silicon-111827?style=flat-square" alt="macOS Apple Silicon" /></a>
   <a href="#本地开发"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
@@ -26,7 +26,7 @@
   <a href="#核心体验">核心体验</a> ·
   <a href="#本地开发">开始开发</a> ·
   <a href="#建设路线">建设路线</a> ·
-  <a href="https://github.com/ViaTumLab/YAgent/releases">版本发布</a> ·
+  <a href="https://github.com/ViaTumLab/OpenMetaHarness/releases">版本发布</a> ·
   <a href="#鸣谢">鸣谢</a>
 </p>
 
@@ -36,7 +36,9 @@
 
 ## 下载安装
 
-**[下载 macOS Apple 芯片预览版](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.2)** · [所有版本](https://github.com/ViaTumLab/YAgent/releases) · [构建状态](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+OpenMetaHarness 从 YAgent 基础演进，由 ViaTumLab 维护；新客户端名称为 **ViaHarness Studio**。当前代码和已发布安装包仍是 Yan Agent / YAgent 基线，安装后的应用名为 **Yan Agent**。新项目不重写执行内核，重点建设外部 Harness 的可视化配置、用户与模型共同维护、路由和版本管理，并规划 OpenCode / OpenHarness 适配与后续 RSI 改进。详见[产品与代码开发计划](docs/plans/openmetaharness-product-and-development-plan.md)。
+
+**[下载 macOS Apple 芯片预览版](https://github.com/ViaTumLab/OpenMetaHarness/releases/tag/macos-v1.7.0-preview.2)** · [所有版本](https://github.com/ViaTumLab/OpenMetaHarness/releases) · [构建状态](https://github.com/ViaTumLab/OpenMetaHarness/actions/workflows/macos-build.yml)
 
 | 平台 | 当前状态 | 获取方式 |
 | --- | --- | --- |
@@ -69,15 +71,15 @@ Apple 正式公证需要开发者会员，通常为 **99 美元/年**，当地�
 
 ## 让不同的 Harness，在同一个工作区里各展所长
 
-YAgent 是由 ViaTumLab 维护的开源桌面 AI 智能体工作区。我们希望把不同 Harness 的配置、选择与任务入口放到一起：你管理自己的 Harness，在对话工作区选择本次任务的执行路由，再查看过程、审阅结果。
+OpenMetaHarness 是由 ViaTumLab 维护、以 Harness 为核心的开源平台项目，计划通过 **ViaHarness Studio** 客户端提供可视化工作台。我们希望让用户通过可视化界面维护 Agent 的工作方式，让模型通过同一套配置与变更机制提出改进：创建自己的 Harness，选择任务路由，再查看过程、审阅结果和比较版本。
 
-通过用户反馈与 RSI（Recursive Self-Improvement，递归自我改进）算法持续优化 Harness，**让 YAgent 越用效果越好，是我们的建设目标。**
+通过用户反馈与 RSI（Recursive Self-Improvement，递归自我改进）算法持续优化 Harness，**让 OpenMetaHarness 越用效果越好，是我们的建设目标。**
 
 <table>
   <tr>
     <td width="33%" valign="top">
       <h3>01 · 统一管理</h3>
-      <p>配置自己的 Harness，集中管理连接方式、启动参数与可用状态。</p>
+      <p>可视化配置指令、模型、工具、上下文与策略，管理 Harness 的版本、连接和可用状态。</p>
     </td>
     <td width="33%" valign="top">
       <h3>02 · 对话路由</h3>
@@ -91,19 +93,19 @@ YAgent 是由 ViaTumLab 维护的开源桌面 AI 智能体工作区。我们希�
 </table>
 
 > [!NOTE]
-> 当前已有桌面智能体工作区。上方介绍的 Harness 管理、对话路由与反馈驱动的 RSI 改进为下一阶段的核心规划，具体进展见[建设路线](#建设路线)。
+> 当前已有 Yan Agent / YAgent 桌面智能体工作区。上方介绍的可视化 Harness 管理、人机共同维护、对话路由与反馈驱动的 RSI 改进为下一阶段的核心规划，具体范围与验收标准见[开发计划](docs/plans/openmetaharness-product-and-development-plan.md)。
 
-## 为什么是 MetaHarness
+## 为什么以 Harness 为核心
 
 完成一个任务，需要模型，也需要围绕模型组织上下文、工具、执行流程与反馈的 Harness。不同任务适合不同的执行方式：编码、研究、自动化操作，可以有各自的配置与工作流程。
 
-YAgent 将 MetaHarness 作为产品方向：**在统一工作区中管理和选择 Harness，把任务交给你指定的执行环境，并让 Harness 从反馈中持续改进。** 模型选择与 Harness 选择各有作用，前者决定使用哪个模型服务，后者决定任务如何组织和执行。
+OpenMetaHarness 将 Harness 作为有独立身份、配置和版本的核心对象：**用户与 AI 在同一工作区中构建和维护 Harness，把任务交给指定的执行后端，并通过评估验证每次改进。** 模型选择决定使用哪个模型服务，Harness 决定任务如何组织和执行；规划中的适配器将连接 OpenCode、OpenHarness 等运行后端，由后端承载执行。
 
 ## 核心体验
 
 ### 1. 配置你自己的 Harness
 
-规划中的 Harness 管理入口将支持维护多个 Harness 配置，包括名称、接入方式、连接或启动参数，以及该 Harness 支持的能力说明。你可以添加、编辑、启用或停用配置，并检查连接状态，让常用的执行环境随时可选。
+规划中的可视化编辑器将支持维护指令、模型、工具、技能、上下文、权限与验收规则，并单独管理运行后端的连接和能力。用户可以手动编辑；模型可以解释配置、生成修改提案。两者使用同一套草稿、校验、差异比较、评估和发布机制，保留版本记录与回退能力。
 
 ### 2. 在对话工作区选择执行方式
 
@@ -121,7 +123,7 @@ YAgent 将 MetaHarness 作为产品方向：**在统一工作区中管理和选�
 
 **执行任务 → 收集反馈 → RSI 生成改进 → 评估验证 → 更新 Harness → 再次执行。**
 
-每轮改进都需要与现有版本对比评估，验证有效后再应用，并保留版本记录与回退能力。我们的目标是让真实使用积累为可验证的改进，让 YAgent 逐步更适合你的任务，越用效果越好。
+每轮改进都需要与现有版本对比评估，验证有效后再应用，并保留版本记录与回退能力。我们的目标是让真实使用积累为可验证的改进，让 OpenMetaHarness 逐步更适合你的任务，越用效果越好。
 
 ```mermaid
 flowchart LR
@@ -153,12 +155,12 @@ flowchart LR
 
 ## 现有工作区能力
 
-YAgent 已有的桌面工作区，为 MetaHarness 的管理与路由提供交互基础。
+以下为 Yan Agent / YAgent 基线已有的桌面工作区，供 OpenMetaHarness 迁移客户端与基础模块时参考。新的 Harness 管理界面尚在规划中。
 
 <p align="center">
-  <img src=".github/readme/desktop.png" alt="YAgent 当前桌面工作区" width="100%" />
+  <img src=".github/readme/desktop.png" alt="Yan Agent / YAgent 基线桌面工作区" width="100%" />
 </p>
-<p align="center"><sub>当前桌面工作区 · Harness 管理与路由界面规划中</sub></p>
+<p align="center"><sub>Yan Agent / YAgent 基线截图 · ViaHarness Studio 可视化工作台规划中</sub></p>
 
 - **项目与代码：** 阅读文件、检索符号、分析项目结构、修改代码与运行测试。
 - **任务协作：** 组织多个智能体处理任务，查看执行进度与交付结果。
@@ -168,9 +170,12 @@ YAgent 已有的桌面工作区，为 MetaHarness 的管理与路由提供交互
 
 ## 建设路线
 
-- [ ] **Harness 管理：** 配置列表、添加与编辑、启停及连接检查。
+完整的功能设计、代码架构、基础能力缺口、分阶段任务与验收标准见[《OpenMetaHarness：产品与代码开发计划》](docs/plans/openmetaharness-product-and-development-plan.md)。
+
+- [ ] **Harness 管理：** 可视化配置、草稿校验、版本发布与回退，以及独立的后端连接管理。
+- [ ] **人机共同维护：** 用户与模型编辑同一配置对象，提供修改提案、差异比较与评估结果。
 - [ ] **工作区选择：** 在发起对话时选择 Harness，清楚展示当前路由。
-- [ ] **执行接入：** 将任务发送给所选 Harness，并接回执行状态与输出。
+- [ ] **执行接入：** 验证 OpenCode / OpenHarness 适配，不重写执行内核；接回状态、审批、中断与输出。
 - [ ] **反馈闭环：** 收集用户评价、纠正意见与任务结果，形成 Harness 改进依据。
 - [ ] **RSI 持续改进：** 生成候选改进、对比评估、迭代更新，并支持版本追踪与回退。
 - [ ] **适配扩展：** 完善接入约定，逐步支持更多 Harness 与自定义实现。
@@ -180,8 +185,8 @@ YAgent 已有的桌面工作区，为 MetaHarness 的管理与路由提供交互
 支持构建 **Windows x64** 与 **macOS Apple 芯片（arm64）** 版本。准备 Git、Node.js 22 和 npm：
 
 ```sh
-git clone https://github.com/ViaTumLab/YAgent.git
-cd YAgent
+git clone https://github.com/ViaTumLab/OpenMetaHarness.git
+cd OpenMetaHarness
 npm ci
 npm run dev
 ```

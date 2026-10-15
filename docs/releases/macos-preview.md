@@ -14,7 +14,7 @@ macOS Apple 芯片（arm64）预览版。下载下方的 `.dmg`，打开后将 *
 
 下载 `.dmg` 和 `SHA256SUMS` 到同一个目录，可运行 `shasum -a 256 -c SHA256SUMS` 检查下载是否完整。
 
-安装、开发和公证说明见 [README](https://github.com/ViaTumLab/YAgent#下载安装) 与 [macOS 发布指南](https://github.com/ViaTumLab/YAgent/blob/main/docs/macos-release.md)。
+安装、开发和公证说明见 [README](https://github.com/ViaTumLab/OpenMetaHarness#下载安装) 与 [macOS 发布指南](https://github.com/ViaTumLab/OpenMetaHarness/blob/main/docs/macos-release.md)。
 
 ---
 

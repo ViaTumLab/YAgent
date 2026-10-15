@@ -1,6 +1,6 @@
 (() => {
   const SOURCE = "../technical-reference.md";
-  const REPO = "https://github.com/ViaTumLab/YAgent";
+  const REPO = "https://github.com/ViaTumLab/OpenMetaHarness";
   const content = document.querySelector("#doc-content");
   const toc = document.querySelector("#toc");
   const filter = document.querySelector("#chapter-filter");

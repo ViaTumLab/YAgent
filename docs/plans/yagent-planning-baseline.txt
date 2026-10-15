@@ -1,0 +1,169 @@
+YAgent planning baseline — 2026-10-16
+Commit: ad8a4f6
+Environment: macOS, Node 24.1.0; project recommends Node 22.
+Scope: seven selected existing test files; not the complete suite.
+One file (harness-usage.test.cjs) was manually terminated after prolonged noncompletion.
+Summary: 67 passed, 1 skipped, 2 assertion failures, 1 terminated test-file failure.
+No application code was modified for this check.
+
+✔ applies atomic refinements with snapshots and outcome history (26.136083ms)
+✔ isolates workspace entries and never injects observing candidates (22.268083ms)
+✔ concurrent refinements merge disjoint edits and reject conflicts (24.394125ms)
+✔ rollback restores untouched edits but preserves entries changed afterward (30.108583ms)
+✔ immutable base prompt and unsafe content never enter harness state (7.324958ms)
+✔ evolution context selects only task-relevant entries and splits policies from experience (18.217042ms)
+✔ evolution context stays inside its character budget (18.7615ms)
+✔ usage attribution credits outcomes and demotes after three consecutive failures (25.050875ms)
+✔ mandatory user policies are never demoted by usage attribution (16.245083ms)
+✔ usage counters survive a later refinement update (11.495458ms)
+✔ usage bookkeeping never blocks refinement updates or rollbacks (11.97625ms)
+✔ preferences are opt-in; providers and concurrency are normalized (6.287542ms)
+✔ collaboration preserves the kernel repetition guard without an invalid config override (72.54225ms)
+✔ authoritative workspace, full Unicode input, original request and hash are persisted before launch (32.714625ms)
+✔ oversize payload fails before dispatch instead of truncating (19.297833ms)
+✔ duplicate submission returns the same job even after failure or across provider choice (12.607ms)
+✔ follow-ups require a completed predecessor and a concrete new issue (28.875833ms)
+✔ same workspace is serial, independent workspaces can run together, failed dependencies block (28.728792ms)
+✔ successful prerequisite unblocks the existing queued job exactly once (13.1315ms)
+✔ an hour-long task survives wait expiration and application service restart without redispatch (6.325833ms)
+✔ cross-session and cross-workspace reads fail, caller cannot override workspace (2.217209ms)
+✔ read-only admission cannot be escalated by the model; disabling blocks only queued work (3.148583ms)
+✔ all output pages reconstruct the full Unicode result including a failure (199.155583ms)
+✔ start uncertainty reserves the workspace and never reruns the job (5.950583ms)
+✔ production dispatch is blocked without launching a CLI and remains deduplicated (2.275042ms)
+✔ queued legacy jobs cannot restart through the old CLI launcher (4.183584ms)
+✔ legacy worker entrypoint blocks unsent jobs without overwriting running or terminal jobs (3.079375ms)
+✔ installation never implies GUI connection or CLI authentication (0.603125ms)
+✔ desktop probe rejects bad paths and reports failed/invalid metadata safely (0.447208ms)
+﹣ selected non-desktop executable is inspected, never run as an Agent (0.020042ms) # SKIP
+✔ desktop-only instructions prohibit CLI fallback and no adapter exports CLI commands (0.12775ms)
+[harness] usage attribution returned 1 repeated-failure entr(ies) to observing for run run-demote-3
+✔ harnessRunOutcome only credits outcomes the run can prove (0.359125ms)
+✔ injected entries are attributed once from the verified run outcome (3.629334ms)
+✔ three consecutive failed uses demote an advisory entry to observing (3.717125ms)
+✔ reviewer edits and usage attribution coexist for the same injected entries (7.601041ms)
+✖ test/harness-usage.test.cjs (256075.582375ms)
+✔ a malformed grant payload degrades to no grants instead of throwing (3.320042ms)
+✔ grant prefixes are deduped and clipped (0.431625ms)
+✔ the grant list is capped so it can never grow without limit (0.347791ms)
+✔ an ask records why, and the resolution fills the same entry (13.405291ms)
+✔ a repeated ask keeps the first timestamp instead of rewriting history (3.02825ms)
+✔ a resolution with no matching ask is still recorded (0.084209ms)
+✔ entries are bounded and listed newest first (0.134792ms)
+✔ an unrecognised decision is preserved rather than silently dropped (0.064334ms)
+✔ a request without an id records nothing and clear() empties the trail (0.109708ms)
+✔ the process-wide audit instance is shared and bounded (0.113084ms)
+✔ an unstamped v1 record reads back as the current format (18.374667ms)
+✔ migration is read-time only: the file and updatedAt are untouched (5.504667ms)
+✖ the summary projection is not widened by the version field (15.369125ms)
+✔ a live Turn found on disk is closed as a restart interruption (12.099708ms)
+✔ a user-aborted Turn is left alone (7.66275ms)
+✔ a user message with no reply gets one closing message, exactly once (8.271167ms)
+✔ reading an old unanswered tail stays quiet across list/get, eviction and restart (40.721792ms)
+✔ active and admitted turns are not interrupted, including after a cache state change (9.833083ms)
+✔ an assistant run owned by the current process retains its working status (15.23675ms)
+✔ a completed Turn is untouched and only the last Turn is examined (4.873708ms)
+✔ save stamps the current version so a migrated record stops re-migrating (6.370667ms)
+✔ a record from a newer build is left exactly as found (4.201708ms)
+✔ a corrupt record does not throw (5.664542ms)
+✔ session ids are still validated (0.059ms)
+✔ requires an absolute target workspace before normalization (1.682792ms)
+✔ reuses the most recently updated task in the target workspace (0.212417ms)
+✖ Yan Session MCP advertises the handoff and bounded source tools (111.029875ms)
+✔ Yan Session tools stay callable with or without a user workspace (2.120166ms)
+✔ journal keeps one Turn's provider events in order with their raw payloads (34.211458ms)
+✔ journal ignores other Turns and reports tail truncation (40.869125ms)
+✔ a recovering Turn settles as aborted and keeps the recovered text as its final item (37.478042ms)
+✔ main recovery descriptors rebuild renderer events only for recovering Turns (26.638583ms)
+✔ main recovery descriptors honor the requested run id filter (35.472292ms)
+✔ previously aborted recovery retries until its session timeline is saved (39.48425ms)
+✔ recoveryRendererEvent only accepts mapped provider journal entries (0.234333ms)
+ℹ tests 71
+ℹ suites 0
+ℹ pass 67
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 256087.261625
+
+✖ failing tests:
+
+test at test/harness-usage.test.cjs:1:1
+✖ test/harness-usage.test.cjs (256075.582375ms)
+  'test failed'
+
+test at test/session-format-version.test.cjs:85:1
+✖ the summary projection is not widened by the version field (15.369125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be loosely deep-equal:
+  
+  [
+    'archived',
+    'archivedAt',
+    'createdAt',
+    'deletionPending',
+    'hasHandoff',
+    'id',
+    'messageCount',
+    'parentSessionId',
+    'pinned',
+    'title',
+    'updatedAt',
+    'workspace',
+    'workspaceMissing'
+  ]
+  
+  should loosely deep-equal
+  
+  [
+    'archived',
+    'archivedAt',
+    'createdAt',
+    'hasHandoff',
+    'id',
+    'messageCount',
+    'parentSessionId',
+    'pinned',
+    'title',
+    'updatedAt',
+    'workspace',
+    'workspaceMissing'
+  ]
+      at TestContext.<anonymous> (test/session-format-version.test.cjs:89:10)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'archived', 'archivedAt', 'createdAt', 'deletionPending', 'hasHandoff', 'id', 'messageCount', 'parentSessionId', 'pinned', 'title', 'updatedAt', 'workspace', 'workspaceMissing' ],
+    expected: [ 'archived', 'archivedAt', 'createdAt', 'hasHandoff', 'id', 'messageCount', 'parentSessionId', 'pinned', 'title', 'updatedAt', 'workspace', 'workspaceMissing' ],
+    operator: 'deepEqual'
+  }
+
+test at test/session-handoff.test.cjs:41:1
+✖ Yan Session MCP advertises the handoff and bounded source tools (111.029875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'intelligent_ui_creator',
+  +   'list_external_sessions',
+  +   'read_external_session',
+      'external_agents_status',
+      'delegate_external_task',
+      'wait_external_tasks',
+      'read_external_task_result',
+      'list_external_tasks',
+  
+      at TestContext.<anonymous> (test/session-handoff.test.cjs:61:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'intelligent_ui_creator', 'list_external_sessions', 'read_external_session', 'external_agents_status', 'delegate_external_task', 'wait_external_tasks', 'read_external_task_result', 'list_external_tasks', 'create_handoff', 'read_source_context' ],
+    expected: [ 'external_agents_status', 'delegate_external_task', 'wait_external_tasks', 'read_external_task_result', 'list_external_tasks', 'create_handoff', 'read_source_context' ],
+    operator: 'deepStrictEqual'
+  }

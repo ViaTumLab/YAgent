@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="docs/assets/yagent-logo.svg" alt="YAgent Logo" width="112" height="112" />
+  <img src="docs/assets/openmetaharness-logo.png" alt="OpenMetaHarness Logo" width="112" />
 </p>
 
-<h1 align="center">YAgent</h1>
+<h1 align="center">OpenMetaHarness</h1>
 
-<h3 align="center">The best way to put MetaHarness into practice</h3>
+<h3 align="center">Build, manage, and evolve your agent harnesses.</h3>
 
 <p align="center">
-  <strong>One workspace. Multiple harnesses.<br />Choose how each conversation runs. Turn feedback into improvement.</strong>
+  <strong>Build and maintain harnesses together with AI.<br />Make your agent workflows editable, runnable, and measurable.</strong>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="#roadmap"><img src="https://img.shields.io/badge/MetaHarness-Planned-648AB8?style=flat-square" alt="MetaHarness: planned" /></a>
+  <a href="#roadmap"><img src="https://img.shields.io/badge/Harness_Studio-Planned-648AB8?style=flat-square" alt="Harness Studio: planned" /></a>
   <a href="#download-and-install"><img src="https://img.shields.io/badge/macOS-Apple_Silicon-111827?style=flat-square" alt="macOS Apple Silicon" /></a>
   <a href="#local-development"><img src="https://img.shields.io/badge/Windows-x64-257FF2?style=flat-square" alt="Windows x64" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-64748B?style=flat-square" alt="MIT License" /></a>
@@ -26,7 +26,7 @@
   <a href="#the-core-experience">Core experience</a> ·
   <a href="#local-development">Get started</a> ·
   <a href="#roadmap">Roadmap</a> ·
-  <a href="https://github.com/ViaTumLab/YAgent/releases">Releases</a> ·
+  <a href="https://github.com/ViaTumLab/OpenMetaHarness/releases">Releases</a> ·
   <a href="#acknowledgments">Acknowledgments</a>
 </p>
 
@@ -36,7 +36,9 @@
 
 ## Download and install
 
-**[Download the macOS Apple Silicon preview](https://github.com/ViaTumLab/YAgent/releases/tag/macos-v1.7.0-preview.2)** · [All releases](https://github.com/ViaTumLab/YAgent/releases) · [Build status](https://github.com/ViaTumLab/YAgent/actions/workflows/macos-build.yml)
+OpenMetaHarness evolves from YAgent and is maintained by ViaTumLab. Its new client is named **ViaHarness Studio**. The current code and released installers remain the Yan Agent / YAgent baseline; the installed application is still named **Yan Agent**. We will preserve the execution kernels and focus on visual harness configuration, shared maintenance by users and AI, routing, and version management. OpenCode / OpenHarness adapters and later RSI improvements are planned. See the [product and development plan (Chinese)](docs/plans/openmetaharness-product-and-development-plan.md).
+
+**[Download the macOS Apple Silicon preview](https://github.com/ViaTumLab/OpenMetaHarness/releases/tag/macos-v1.7.0-preview.2)** · [All releases](https://github.com/ViaTumLab/OpenMetaHarness/releases) · [Build status](https://github.com/ViaTumLab/OpenMetaHarness/actions/workflows/macos-build.yml)
 
 | Platform | Status | How to get it |
 | --- | --- | --- |
@@ -69,15 +71,15 @@ Formal notarization requires Apple Developer Program membership, normally **USD 
 
 ## Different harnesses. A shared place to work.
 
-YAgent is an open-source desktop AI agent workspace maintained by ViaTumLab. Our goal is to bring harness configuration, selection, and task entry into one place: manage your own harnesses, select an execution route in the conversation workspace, and follow the work through to review.
+OpenMetaHarness is an open-source platform project maintained by ViaTumLab, with harnesses at its core and a planned visual workbench client named **ViaHarness Studio**. Our goal is to let users visually maintain agent workflows and let models propose improvements through the same configuration and change mechanisms: create your harnesses, choose a route for each task, then review execution, results, and version differences.
 
-We also aim to continuously improve harnesses through user feedback and RSI (Recursive Self-Improvement), with a clear development goal: **make YAgent more effective the more you use it.**
+We also aim to continuously improve harnesses through user feedback and RSI (Recursive Self-Improvement), with a clear development goal: **make OpenMetaHarness more effective the more you use it.**
 
 <table>
   <tr>
     <td width="33%" valign="top">
       <h3>01 · Manage</h3>
-      <p>Configure your own harnesses and manage connections, startup parameters, and availability in one place.</p>
+      <p>Visually configure instructions, models, tools, context, and policies, with harness versions, connections, and availability in one place.</p>
     </td>
     <td width="33%" valign="top">
       <h3>02 · Route</h3>
@@ -91,19 +93,19 @@ We also aim to continuously improve harnesses through user feedback and RSI (Rec
 </table>
 
 > [!NOTE]
-> A desktop agent workspace is available today. Harness management, conversation routing, and feedback-driven RSI improvements are planned. Follow the [roadmap](#roadmap) for development priorities.
+> The Yan Agent / YAgent desktop workspace is available today. Visual harness management, shared maintenance by users and AI, conversation routing, and feedback-driven RSI improvements are planned. See the [development plan (Chinese)](docs/plans/openmetaharness-product-and-development-plan.md) for scope and acceptance criteria.
 
-## Why MetaHarness
+## Why harnesses are the core
 
 Completing a task takes a model and a harness that organizes context, tools, execution, and feedback around it. Coding, research, and automation can each benefit from their own configuration and workflow.
 
-YAgent's MetaHarness direction is to **manage and select harnesses in a shared workspace, routing tasks to the execution environment you choose and continuously improving harnesses through feedback.** Model selection determines which model service to use; harness selection determines how the task is organized and executed.
+OpenMetaHarness treats each harness as a core object with its own identity, configuration, and versions: **users and AI build and maintain harnesses in a shared workspace, route tasks to a selected runtime, and evaluate each proposed improvement.** Model selection determines which model service to use; a harness defines how work is organized and executed. Planned adapters will connect execution backends such as OpenCode and OpenHarness.
 
 ## The core experience
 
 ### 1. Configure your own harnesses
 
-The planned management interface will maintain multiple harness configurations, including names, connection methods, connection or startup parameters, and descriptions of supported capabilities. Add, edit, enable, or disable configurations and check connectivity to keep your preferred environments ready to select.
+The planned visual editor will maintain instructions, models, tools, skills, context, permissions, and acceptance rules, with runtime connections and capabilities managed separately. Users can edit configurations directly; models can explain them and propose changes. Both use the same drafts, validation, diffs, evaluations, and publishing mechanisms, with version history and rollback support.
 
 ### 2. Choose a harness in the conversation workspace
 
@@ -121,7 +123,7 @@ The planned improvement loop will combine user ratings, corrections, and task ou
 
 **Run a task → Collect feedback → Generate improvements with RSI → Evaluate and validate → Update the harness → Run again.**
 
-Each candidate improvement will be evaluated against the current version before adoption, with version history and rollback support. The goal is to turn real usage into measurable improvements, making YAgent progressively better suited to your tasks and more effective over time.
+Each candidate improvement will be evaluated against the current version before adoption, with version history and rollback support. The goal is to turn real usage into measurable improvements, making OpenMetaHarness progressively better suited to your tasks and more effective over time.
 
 ```mermaid
 flowchart LR
@@ -153,12 +155,12 @@ flowchart LR
 
 ## Current workspace capabilities
 
-YAgent's existing desktop workspace provides the interface foundation for harness management and routing.
+The following capabilities and screenshot belong to the existing Yan Agent / YAgent baseline, which provides client and infrastructure modules for migration. The new ViaHarness Studio management interface is still planned.
 
 <p align="center">
-  <img src=".github/readme/desktop.png" alt="YAgent current desktop workspace" width="100%" />
+  <img src=".github/readme/desktop.png" alt="Yan Agent / YAgent baseline desktop workspace" width="100%" />
 </p>
-<p align="center"><sub>Current desktop workspace · Harness management and routing interfaces are planned</sub></p>
+<p align="center"><sub>Yan Agent / YAgent baseline screenshot · ViaHarness Studio visual workbench is planned</sub></p>
 
 - **Projects and code:** Read files, find symbols, analyze project structure, edit code, and run tests.
 - **Task collaboration:** Coordinate multiple agents and inspect progress and deliverables.
@@ -168,9 +170,12 @@ YAgent's existing desktop workspace provides the interface foundation for harnes
 
 ## Roadmap
 
-- [ ] **Harness management:** Configuration list, creation and editing, enable/disable controls, and connectivity checks.
+See the [OpenMetaHarness product and development plan (Chinese)](docs/plans/openmetaharness-product-and-development-plan.md) for the full design, code architecture, infrastructure gaps, phased tasks, and acceptance criteria.
+
+- [ ] **Harness management:** Visual configuration, draft validation, version publishing and rollback, and separate runtime connection management.
+- [ ] **Shared maintenance by users and AI:** Edit the same configuration objects, with change proposals, diffs, and evaluation results.
 - [ ] **Workspace selection:** Select a harness when starting a conversation and clearly display the chosen route.
-- [ ] **Execution integration:** Send tasks to the selected harness and receive execution status and output.
+- [ ] **Execution integration:** Validate OpenCode / OpenHarness adapters while preserving execution kernels; integrate status, approvals, cancellation, and output.
 - [ ] **Feedback loop:** Collect user ratings, corrections, and task outcomes as evidence for harness improvements.
 - [ ] **Continuous improvement with RSI:** Generate candidate improvements, evaluate against the current version, and iterate with version tracking and rollback support.
 - [ ] **Adapter expansion:** Refine integration conventions and progressively support more harnesses and custom implementations.
@@ -180,8 +185,8 @@ YAgent's existing desktop workspace provides the interface foundation for harnes
 Builds are supported for **Windows x64** and **macOS Apple Silicon (arm64)**. Install Git, Node.js 22, and npm:
 
 ```sh
-git clone https://github.com/ViaTumLab/YAgent.git
-cd YAgent
+git clone https://github.com/ViaTumLab/OpenMetaHarness.git
+cd OpenMetaHarness
 npm ci
 npm run dev
 ```
